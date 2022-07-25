@@ -1,0 +1,52 @@
+﻿@{
+    if (ViewBag.Articles.Count > 0)
+    {
+        foreach (var row in ViewBag.Articles)
+        {
+            string ImageBase64 = Convert.ToBase64String(row.Image);
+            string ImageSrc = string.Format("data:image/gif;base64,{0}", ImageBase64);
+            <tr>
+                <td><img src="@ImageSrc" style="width:50px;height:50px" /></td>
+                <td>@row.Description</td>
+                <td>
+                    <div class="dropdown d-inline-block">
+                        <button type="button" aria-haspopup="true" aria-expanded="false" data-toggle="dropdown"
+                                class="mb-2 mr-2 dropdown-toggle btn btn-primary">
+                            Manage options
+                        </button>
+                        <div tabindex="-1" role="menu" aria-hidden="true"
+                             class="dropdown-menu-shadow dropdown-menu">
+                            <div class="dropdown-menu-header">
+                                <div class="dropdown-menu-header-inner bg-primary">
+                                    <div class="menu-header-image opacity-1" style="background-image: url('/Contents/images/dropdown-header/abstract3.jpg');"></div>
+                                    <div class="menu-header-content">
+                                        <h5 class="menu-header-title">Options Menu</h5>
+                                        <h6 class="menu-header-subtitle">Manage all of your options</h6>
+                                    </div>
+                                </div>
+                            </div>
+                            <button type="button" tabindex="0" class="dropdown-item" onclick="Edit(@row.Id)" data-toggle="modal" data-target="#Edit">
+                                <i class="dropdown-icon lnr-pencil"> </i><span>Edit</span>
+                            </button>
+                            <button type="button" tabindex="0" class="dropdown-item" onclick="Prompt(@row.Id)">
+                                <i class="dropdown-icon lnr-trash"> </i><span>Delete</span>
+                            </button>
+                            <a href="@Url.Action("ManageArticleContents", "Article", new { ArticleID = row.Id })" tabindex="0" class="dropdown-item">
+                                <i class="dropdown-icon ion-android-done-all"></i><span>Manage contents</span>
+                            </a>
+                            <a href="@Url.Action("ManageQuestion", "QuestionBank", new { ArticleID = row.Id })" tabindex="0" class="dropdown-item">
+                                <i class="dropdown-icon ion ion-information"></i><span>Manage question bank</span>
+                            </a>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+        }
+    }
+    else
+    {
+        <tr>
+            <td colspan="3" class="text-center">No course found</td>
+        </tr>
+    }
+}

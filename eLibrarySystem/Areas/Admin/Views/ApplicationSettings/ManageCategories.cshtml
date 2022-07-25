@@ -1,0 +1,113 @@
+﻿@using System.Web.Optimization;
+@{
+    ViewBag.Title = "Manage Categories";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+<div class="app-main__inner">
+    @Html.Partial("_NotificationAlert")
+    <div class="app-page-title">
+        <div class="page-title-wrapper">
+            <div class="page-title-heading">
+                <div class="page-title-icon">
+                    <i class="pe-7s-medal icon-gradient bg-tempting-azure"></i>
+                </div>
+                <div>
+                    Categories
+                    <div class="page-title-subheading">Manage all categories and their respective sub categories here.</div>
+                </div>
+            </div>
+            <div class="page-title-actions">
+                <div class="dropdown d-inline-block">
+                    <button type="button" aria-haspopup="true" aria-expanded="false" data-toggle="dropdown"
+                            class="mb-2 mr-2 dropdown-toggle btn btn-shadow btn-primary">
+                        Create new
+                    </button>
+                    <div tabindex="-1" role="menu" aria-hidden="true" class="dropdown-menu">
+                        <button type="button" tabindex="0" class="dropdown-item" data-toggle="modal" data-target="#CreateCategory"><i class="dropdown-icon ion-android-add"></i> Category</button>
+                        <div tabindex="-1" class="dropdown-divider"></div>
+                        <button type="button" tabindex="0" class="dropdown-item" data-toggle="modal" data-target="#CreateSubCategory"><i class="dropdown-icon ion-android-add"></i> Sub category</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div><div class="main-card mb-3 card">
+        <div class="card-body">
+            <div id="accordion" class="accordion-wrapper mb-3">
+                @foreach (var category in ViewBag.Categories)
+                {
+                    <div class="card">
+                        <div id="cat_@category.Id" class="card-header">
+                            <button type="button" data-toggle="collapse" data-target="#target_@category.Id"
+                                    aria-expanded="true" aria-controls="cat_@category.Id"
+                                    class="text-left m-0 p-0 btn btn-link btn-block">
+                                <h5 class="m-0 p-0">@category.Description</h5>
+                            </button>
+                            <div class="widget-content-right widget-content-actions">
+                                <div class="d-inline-block dropdown">
+                                    <button type="button" aria-haspopup="true" data-toggle="dropdown" aria-expanded="false" class="border-0 btn-transition btn btn-link">
+                                        <i class="fa fa-ellipsis-h"></i>
+                                    </button>
+                                    <div tabindex="-1" role="menu" aria-hidden="true" class="dropdown-menu dropdown-menu-right">
+                                        <button type="button" tabindex="0" class="dropdown-item" onclick="EditCategory(@category.Id)" data-toggle="modal" data-target="#EditCategory"><i class="dropdown-icon lnr-pencil"></i> Edit</button>
+                                        <button type="button" tabindex="0" class="dropdown-item" onclick="DeleteCategory(@category.Id)"><i class="dropdown-icon ion-android-close"></i> Remove</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div data-parent="#accordion" id="target_@category.Id" aria-labelledby="cat_@category.Id"
+                             class="collapse">
+                            <div class="card-body">
+                                <ul class="todo-list-wrapper list-group list-group-flush">
+                                    @foreach (var subcategory in ViewBag.SubCategories)
+                                    {
+                                        if (category.Id == subcategory.ParentID)
+                                        {
+                                            <li class="list-group-item">
+                                                <div class="todo-indicator bg-primary"></div>
+                                                <div class="widget-content p-0">
+                                                    <div class="widget-content-wrapper">
+                                                        <div class="widget-content-left mr-2">
+                                                        </div>
+                                                        <div class="widget-content-left">
+                                                            <div class="widget-heading">@subcategory.Description</div>
+                                                            <div class="widget-subheading">
+                                                                <div>
+                                                                    @subcategory.ContentInformation
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="widget-content-right widget-content-actions">
+                                                            <div class="d-inline-block dropdown">
+                                                                <button type="button" aria-haspopup="true" data-toggle="dropdown" aria-expanded="false" class="border-0 btn-transition btn btn-link">
+                                                                    <i class="fa fa-ellipsis-h"></i>
+                                                                </button>
+                                                                <div tabindex="-1" role="menu" aria-hidden="true" class="dropdown-menu dropdown-menu-right">
+                                                                    <button type="button" tabindex="0" class="dropdown-item" onclick="EditSubCategory(@subcategory.Id)" data-toggle="modal" data-target="#EditSubCategory"><i class="dropdown-icon lnr-pencil"></i> Edit</button>
+                                                                    <button type="button" tabindex="0" class="dropdown-item" onclick="DeleteSubCategory(@subcategory.Id)"><i class="dropdown-icon ion-android-close"></i> Remove</button>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                        }
+                                    }
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+@section Scripts{
+    @Scripts.Render("~/bundles/validation")
+    @Scripts.Render("~/bundles/category")
+}
+@section Modals{
+    @Html.Partial("_EditCategory")
+    @Html.Partial("_EditSubCategory")
+    @Html.Partial("_CreateCategory")
+    @Html.Partial("_CreateSubCategory")
+}

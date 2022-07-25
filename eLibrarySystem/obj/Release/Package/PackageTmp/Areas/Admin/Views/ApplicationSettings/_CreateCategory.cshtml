@@ -1,0 +1,61 @@
+﻿@model eLibrarySystem.Areas.Admin.ViewModels.CategoriesVM
+<div class="modal fade" id="CreateCategory" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Create category</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            @using (Html.BeginForm("CreateCategory", "ApplicationSettings", FormMethod.Post, new { area = "Admin", @class = "validate", novalidate = true }))
+            {
+                @Html.AntiForgeryToken()
+                <div class="modal-body">
+                    <div class="position-relative form-group">
+                        <label for="Firstname" class="col-form-label">Description</label><span class="text-danger">*</span>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <div class="input-group-text">
+                                    <i class="ion-android-create"></i>
+                                </div>
+                            </div>
+                            @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control", placeholder = "Enter description", required = true } })
+                            <div class="valid-feedback">
+                                Nice!
+                            </div>
+                            <div class="invalid-feedback">
+                                Description required
+                            </div>
+                        </div>
+                        <label for="ContentInformation" class="col-form-label">Content information</label><span class="text-danger">*</span>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <div class="input-group-text">
+                                    <i class="ion-android-create"></i>
+                                </div>
+                            </div>
+                            @Html.TextAreaFor(model => model.ContentInformation, 0, 3, new { @class = "form-control", placeholder = "Enter content information", required = true })
+                            <div class="valid-feedback">
+                                Nice!
+                            </div>
+                            <div class="invalid-feedback">
+                                Content information required
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="submit" class="ladda-button btn btn-shadow btn-primary" data-style="zoom-in">
+                        <span class="ladda-label">Create</span>
+                        <span class="ladda-spinner"></span>
+                    </button>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+

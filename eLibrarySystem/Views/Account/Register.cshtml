@@ -1,0 +1,137 @@
+﻿@using System.Web.Optimization;
+@{
+    using (eLibrary.DAL.DataConnection.eLibraryDatabaseEntities _entities = new eLibrary.DAL.DataConnection.eLibraryDatabaseEntities())
+    {
+        var settings = _entities.ApplicationSettings.FirstOrDefault();
+        ViewBag.AppName = settings.AppName;
+        ViewBag.Title = "Registration";
+        //string LogoBase64 = Convert.ToBase64String(settings.Logo);
+        //ViewBag.LogoSrc = string.Format("data:image/gif;base64,{0}", LogoBase64);
+    }
+}
+@model eLibrarySystem.Areas.Admin.ViewModels.MemberVM
+
+<!doctype html>
+<html lang="en">
+
+
+<meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack -->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="Content-Language" content="en">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>@ViewBag.Title - @ViewBag.AppName</title>
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, shrink-to-fit=no" />
+    <meta name="description" content="ArchitectUI HTML Bootstrap 4 Dashboard Template">
+
+    <!-- Disable tap highlight on IE -->
+    <meta name="msapplication-tap-highlight" content="no">
+
+    <!-- Referencing css styles to the page-->
+    @Styles.Render("~/Content/main")
+</head>
+
+<body>
+    <div class="app-container app-theme-white body-tabs-shadow">
+        <div class="app-container">
+            <div class="h-100">
+                <div class="h-100 no-gutters row">
+                    <div class="h-100 d-md-flex d-sm-block bg-white justify-content-center align-items-center col-md-12 col-lg-7">
+                        <div class="mx-auto app-login-box col-sm-12 col-md-10 col-lg-9">
+                            @*<div class="app-logo"></div>*@
+                            <h4>
+                                <div>Welcome,</div>
+                                <span>Please, fill your correct details accordingly</span>
+                            </h4>
+                            <div>
+                                @using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @class = "validate", novalidate = true }))
+                                {
+                                    @Html.AntiForgeryToken();
+                                    <div class="form-row">
+                                        <div class="col-md-6">
+                                            <div class="position-relative form-group">
+                                                <label for="exampleEmail" class=""><span class="text-danger">*</span> Email</label>
+                                                @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control", placeholder = "Enter Email", required = true, pattern = "[a-z0-9._%+-]+@[a-z0-9.-]+.[a-z]{2,3}$", data_inputmask = "'alias': 'email'", im_insert = "true" } })
+                                                <div class="invalid-feedback">
+                                                    Email required
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="position-relative form-group">
+                                                <label for="exampleName" class="">Name<span class="text-danger">*</span></label>
+                                                @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control", placeholder = "Enter Name", required = true } })
+                                                <div class="invalid-feedback">
+                                                    Name required
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="position-relative form-group">
+                                                <label for="examplePassword" class=""><span class="text-danger">*</span> Password</label>
+                                                @Html.PasswordFor(model => model.Password, new { @class = "form-control", placeholder = "Enter Password", required = true })
+                                                <div class="valid-feedback">
+                                                    Unique!
+                                                </div>
+                                                <div class="invalid-feedback">
+                                                    Password required
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="position-relative form-group">
+                                                <label for="examplePasswordRep" class=""><span class="text-danger">*</span> Repeat Password</label>
+                                                @Html.PasswordFor(model => model.ConfirmPassword, new { @class = "form-control", placeholder = "Confirm Password", required = true })
+                                                <div class="invalid-feedback">
+                                                    Password don't match
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="mt-3 position-relative form-check">
+                                        <input name="check" id="exampleCheck" type="checkbox" class="form-check-input">
+                                        <label for="exampleCheck" class="form-check-label">Accept our <a href="javascript:void(0);">Terms and Conditions</a>.</label>
+                                    </div>
+                                    <div class="mt-4 d-flex align-items-center">
+                                        <h5 class="mb-0">Already have an account? <a href="~/Account/Login" class="text-primary">Sign in</a></h5>
+                                        <div class="ml-auto">
+                                            <button class="btn-wide btn-pill btn-shadow btn-hover-shine btn btn-primary btn-lg">Create Account </button>
+                                        </div>
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                    <div class="d-lg-flex d-xs-none col-lg-5">
+                        <div class="slider-light">
+                            <div class="slick-slider slick-initialized">
+                                <div>
+                                    <div class="position-relative h-100 d-flex justify-content-center align-items-center bg-premium-dark"
+                                         tabindex="-1">
+                                        <div class="slide-img-bg"
+                                             style="background-image: url('/Contents/images/background.jpg'); background-size:100%"></div>
+                                        <div class="slider-content">
+                                            <div class="slider-content">
+                                                <h1>@ViewBag.AppName</h1>
+                                                <p>
+                                                    by OKOLO PRECIOUS KOSISOCHUKWU     
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Referencing scripts to the page-->
+    @Scripts.Render("~/bundles/main")
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/validation")
+</body>
+</html>

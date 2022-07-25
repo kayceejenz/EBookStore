@@ -1,0 +1,103 @@
+﻿@using System.Web.Optimization;
+@{
+    ViewBag.Title = "Manage users";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="app-main__inner">
+    @Html.Partial("_NotificationAlert")
+    <div class="app-page-title">
+        <div class="page-title-wrapper">
+            <div class="page-title-heading">
+                <div class="page-title-icon">
+                    <i class="pe-7s-users icon-gradient bg-tempting-azure"></i>
+                </div>
+                <div>
+                    Users
+                    <div class="page-title-subheading">Manage all users in the system here.</div>
+                </div>
+            </div>
+            <div class="page-title-actions">
+                <button class="mb-2 mr-2 btn-hover-shine btn btn-shadow btn-primary" data-toggle="modal"
+                        data-target="#Create">
+                    Create new user
+                </button>
+            </div>
+        </div>
+    </div>
+    <div class="main-card mb-3 card">
+        <div class="card-body">
+            <table style="width: 100%;" id="example" class="table table-hover table-striped table-bordered">
+                <thead>
+                    <tr>
+                        <th>First name</th>
+                        <th>Last name</th>
+                        <th>User name</th>
+                        <th>E-mail</th>
+                        <th>Role</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var row in ViewBag.Users)
+                    {
+                        <tr>
+                            <td>@row.Firstname</td>
+                            <td>@row.Lastname</td>
+                            <td>@row.Username</td>
+                            <td>@row.Email</td>
+                            <td>@row.Role</td>
+                            <td>
+                                <div class="dropdown d-inline-block">
+                                    <button type="button" aria-haspopup="true" aria-expanded="false" data-toggle="dropdown"
+                                            class="mb-2 mr-2 dropdown-toggle  btn btn-shadow btn-primary">
+                                        Manage options
+                                    </button>
+                                    <div tabindex="-1" role="menu" aria-hidden="true"
+                                         class="dropdown-menu-shadow dropdown-menu">
+                                        <div class="dropdown-menu-header">
+                                            <div class="dropdown-menu-header-inner bg-primary">
+                                                <div class="menu-header-image opacity-1" style="background-image: url('/Contents/images/dropdown-header/abstract3.jpg');"></div>
+                                                <div class="menu-header-content">
+                                                    <h5 class="menu-header-title">Options Menu</h5>
+                                                    <h6 class="menu-header-subtitle">Manage all of your options</h6>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <button type="button" tabindex="0" class="dropdown-item" onclick="Edit(@row.Id)" data-toggle="modal" data-target="#Edit">
+                                            <i class="dropdown-icon lnr-pencil"> </i><span>Edit</span>
+                                        </button>
+                                        <button type="button" tabindex="0" class="dropdown-item" onclick="Prompt(@row.Id)">
+                                            <i class="dropdown-icon lnr-trash"> </i><span>Delete</span>
+                                        </button>
+                                        @if (row.IsActive == true)
+                                        {
+                                            <button type="button" tabindex="0" class="dropdown-item" onclick="Deactivate(@row.Id)">
+                                                <i class="dropdown-icon ion-android-close"> </i><span>Deactivate</span>
+                                            </button>
+                                        }
+                                        else
+                                        {
+                                            <button type="button" tabindex="0" class="dropdown-item" onclick="Activate(@row.Id)">
+                                                <i class="dropdown-icon ion-android-done-all"> </i><span>Activate</span>
+                                            </button>
+                                        }
+                                    </div>
+                                </div>
+
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+@section Scripts{
+    @Scripts.Render("~/bundles/validation")
+    @Scripts.Render("~/bundles/user")
+}
+@section Modals{
+    @Html.Partial("_EditUser")
+    @Html.Partial("_CreateUser")
+}

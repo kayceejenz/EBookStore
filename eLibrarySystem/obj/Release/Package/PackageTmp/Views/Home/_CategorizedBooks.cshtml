@@ -1,0 +1,35 @@
+﻿@model eLibrarySystem.Areas.Admin.ViewModels.HomeModel
+
+@{
+    if (Model.Books.Count > 0)
+    {
+
+        <div class="row">
+            @foreach (var book in Model.Books)
+            {
+                string FrontCoverBase64 = Convert.ToBase64String(book.FrontCover);
+                string FrontCoverSrc = string.Format("data:image/gif;base64,{0}", FrontCoverBase64);
+                string BackCoverBase64 = Convert.ToBase64String(book.BackCover);
+                string BackCoverSrc = string.Format("data:image/gif;base64,{0}", BackCoverBase64);
+                <div class="col-md-3">
+                    <div class="main-card mb-2 card">
+                        <div class="card-body">
+                            <h4 class="card-title">@book.Name</h4><small> - @book.Author</small>
+                            <div class="product_fav pull-right" id="@book.Id"><i class="fas fa-heart"></i></div>
+                            <div class="divider"></div>
+                            <div class="" style="height:300px; width: 100%;">
+                                <img src="@FrontCoverSrc" style="height:300px; width: 100%;" />
+                            </div><br />
+                            <a class="btn-hover-shine btn btn-shadow btn-primary btn-block" href="@Url.Action("ViewBook","Book",new { id=book.Id})">more info</a>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    }
+    else
+    {
+        <h4 class="text-center">No record found</h4>
+    }
+
+}

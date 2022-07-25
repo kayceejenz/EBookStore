@@ -1,0 +1,91 @@
+﻿@model eLibrarySystem.Areas.Admin.ViewModels.ArticleContentQuestionMappingVM
+@using eLibrary.DAL.Entity
+@using System.Web.Optimization;
+@{
+    ViewBag.Title = "Manage Article Content Question Mapping";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+
+}
+<div class="app-main__inner">
+    @Html.Partial("_NotificationAlert")
+    <div class="app-page-title">
+        <div class="page-title-wrapper">
+            <div class="page-title-heading">
+                <div class="page-title-icon">
+                    <i class="pe-7s-medal icon-gradient bg-tempting-azure"></i>
+                </div>
+                <div>
+                    Article content question mapping
+                    <div class="page-title-subheading">Manage article question mapping here.</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="main-card mb-3 card">
+        <div class="card-body">
+            @using (Html.BeginForm())
+            {
+                @Html.AntiForgeryToken()
+                <div class="position-relative form-group">
+                    <label for="Username" class="col-form-label">Article Content Heading</label>
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <div class="input-group-text">
+                                <i class="ion-person"></i>
+                            </div>
+                        </div>
+                        @Html.EditorFor(model => model.ArticleContent, new { htmlAttributes = new { @class = "form-control", @readonly = true } })
+                    </div>
+                </div>
+                <div class="divider"></div>
+                <table style="width: 100%;" id="example" class="table table-hover table-striped table-bordered">
+                    <tbody>
+                        @for (int i = 0; i < Model.TableDataSource.Count; i++)
+                        {
+                            <tr>
+                                <td>
+                                    @Html.CheckBoxFor(model => model.TableDataSource[i].IsSelected, new { @class = "checker" })
+                                </td>
+                                <td>@Model.TableDataSource[i].QuestionType</td>
+                                <td style="width: 200px;">@Html.Raw(Model.TableDataSource[i].Question)</td>
+                                @if (Model.TableDataSource[i].QuestionType == QuestionType.Multi_Choice)
+                                {
+                                    <td>
+                                        <div>
+                                            @foreach (var option in Model.TableDataSource[i].Options)
+                                            {
+                                                <div class="input-group">
+                                                    <div class="input-group-prepend">
+                                                        <span class="input-group-text">
+                                                            <input aria-label="Checkbox for following text input" type="radio" id="@option.Id" class="">
+                                                        </span>
+                                                    </div>
+                                                    <input type="text" class="form-control" value="@option.OptionTxt" readonly>
+                                                </div>
+                                            }
+                                        </div>
+                                    </td>
+                                }
+                                else
+                                {
+                                    <td><textarea class="form-control"></textarea></td>
+                                }
+                                <td>@Model.TableDataSource[i].Answer.AnswerText</td>
+                                <td>
+                                    @Html.TextBoxFor(model => Model.TableDataSource[i].Mark, new { @class = "form-control mark", required = true })
+                                </td>
+                                <td style="display: none;">@Html.HiddenFor(m => m.TableDataSource[i].QuestionID)</td>
+                                <td style="display: none;">@Html.HiddenFor(m => m.TableDataSource[i].ArticleContentID)</td>
+                                <td style="display: none;">@Html.HiddenFor(m => m.TableDataSource[i].ArticleID)</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+                <button type="submit" class="ladda-button btn btn-shadow btn-primary" data-style="zoom-in">
+                    <span class="ladda-label">Update</span>
+                    <span class="ladda-spinner"></span>
+                </button>
+            }
+        </div>
+    </div>
+</div>

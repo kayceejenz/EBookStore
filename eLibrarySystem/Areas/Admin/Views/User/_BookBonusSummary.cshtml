@@ -1,0 +1,21 @@
+﻿@{
+    if (ViewBag.BookBonusSummary.Count > 0)
+    {
+        foreach (var item in ViewBag.BookBonusSummary)
+        {
+            <tr>
+                <td>@item.Name</td>
+                <td>@item.Author</td>
+                <td>@item.Categories</td>
+                <td>@item.Edition</td>
+                <td>@item.DateCreated.ToShortDateString() at @item.DateCreated.ToString("hh:mm tt")</td>
+            </tr>
+        }
+    }
+    @*else
+    {
+        <tr>
+            <td colspan="5" class="text-center">No book to show</td>
+        </tr>
+    }*@
+}

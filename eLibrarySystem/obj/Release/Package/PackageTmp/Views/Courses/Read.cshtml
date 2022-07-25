@@ -1,0 +1,238 @@
+﻿@model IQueryable<eLibrarySystem.Areas.Admin.ViewModels.TestXPaperVM>
+@using eLibrary.DAL.Entity;
+@{
+    int count = 1, countR = 0;
+
+    ViewBag.Title = "Read";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<style>
+    .input-group:hover {
+        box-shadow: 0 10px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .form-control {
+        height: inherit;
+    }
+</style>
+<div class="app-main__inner">
+    <div class="app-page-title app-page-title-simple">
+        <div class="page-title-wrapper">
+            <div class="page-title-heading">
+                <div>
+                    <div class="page-title-head center-elem">
+                        <span class="d-inline-block pr-2">
+                            <i class="lnr-apartment icon-gradient bg-mean-fruit"></i>
+                        </span>
+                        <span class="d-inline-block">Main Home page</span>
+                    </div>
+                    <div class="page-title-subheading opacity-10">
+                        <nav class="" aria-label="breadcrumb">
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item">
+                                    <a>
+                                        <i aria-hidden="true" class="fa fa-home"></i>
+                                    </a>
+                                </li>
+                                <li class="breadcrumb-item" aria-current="page">
+                                    Courses
+                                </li>
+                                <li class="active breadcrumb-item" aria-current="page">
+                                    @ViewBag.Course.Description
+                                </li>
+                                <li class="active breadcrumb-item" aria-current="page">
+                                    @ViewBag.CourseContent.Heading
+                                </li>
+                            </ol>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="main-card mb-3 card">
+        <div class="card-body">
+            <div id="smartwizard3" class="forms-wizard-vertical">
+                <ul class="forms-wizard">
+                    <li>
+                        <a href="#step-122">
+                            <em>1</em><span>LESSON</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#step-222">
+                            <em>2</em><span>EXCERSICE</span>
+                        </a>
+                    </li>
+
+                </ul>
+                <div class="form-wizard-content">
+                    <div id="step-122">
+                        <div class="card-body">
+                            <h3>@ViewBag.CourseContent.Heading</h3><hr />
+
+                            <p>@Html.Raw(@ViewBag.CourseContent.Body)</p>
+                        </div>
+                    </div>
+                    <div id="step-222">
+                        <div class="card-body">
+                            @if (Model != null && Model.Any())
+                            {
+                                <form class="icons-tab-steps wizard-circle" id="ExamPanel">
+                                    <small style="color: red">NB: Answer all questions</small>
+                                    <hr />
+                                    @{
+                                        var counter = 0;
+                                        foreach (var question in Model)
+                                        {
+                                            counter++;
+
+                                            <p><strong> Question @counter</strong></p>
+                                            <span id="@string.Format("{0}{1}", "ID_Q", count)" style="display: none;">@question.QuestionID</span>
+                                            <span id="@string.Format("{0}{1}", "ID_QT", count)" style="display: none;">@question.QuestionType</span>
+                                            <p style="border: 1px solid #d3d3d3; padding: 20px" id="@string.Format("{0}{1}", "Q", count)"> @Html.Raw(@question.Question)</p>
+                                            <br />
+                                            switch (question.QuestionType)
+                                            {
+                                                case QuestionType.Multi_Choice:
+                                                    foreach (var choice in question.Options)
+                                                    {
+                                                        <div class="input-group">
+                                                            <div class="input-group-prepend">
+                                                                <span class="input-group-text">
+                                                                    <input type="radio" name="@string.Format("{0}{1}", "inlineRadioOptions", count)" id="@string.Format("{0}{1}", "inlineRadio", countR)" value="@choice.OptionTxt" required>
+                                                                </span>
+                                                            </div>
+                                                            <label class="form-control" for="@string.Format("{0}{1}", "inlineRadio", countR)">@choice.OptionTxt</label>
+                                                            <div class="invalid-feedback">
+                                                                Answer required
+                                                            </div>
+                                                        </div>
+                                                        <p></p>
+                                                        countR++;
+                                                    }
+                                                    <p style="color: red" class="p-error"></p>
+                                                    break;
+
+                                                case QuestionType.Fill_in_the_blank:
+                                                    <div class="form-group">
+                                                        <span class="input-group-addon">
+                                                            <textarea class="form-control" name="@string.Format("{0}{1}", "inlineRadioOptions", count)" id="@string.Format("{0}{1}", "inlineRadio", countR)" required="" value="@question.UserAnswer"></textarea>
+                                                        </span>
+                                                    </div>
+
+                                                    <p style="color: red" class="p-error"></p>
+                                                    break;
+                                            }
+                                            <div id="@string.Format("{0}{1}{2}", "Ans", "Q", count)"></div>
+                                            <hr />
+                                            count++;
+                                        }
+                                    }
+                                    <span id="countQuections" style="display: none;">@count</span>
+                                </form>
+                            }
+                            else
+                            {
+                                <h2 class="text-center">No excerise for the lesson</h2>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="divider"></div>
+            <div class="clearfix">
+                <a href="@Url.Action("CourseContentHeader","Courses",new { CourseID = Session["CourseID"]})" class="btn-shadow btn-wide float-left btn-pill btn-hover-shine btn btn-success">Back to course list</a>
+                @if (Model != null && Model.Any())
+                {
+                    <button type="button" id="submit" class="btn-shadow ml-2 btn-wide float-right btn-pill btn-hover-shine btn btn-primary" onclick="Submit()">Submit</button>
+                }
+                <button type="button" id="next-btn22" onclick="CheckForHidePrevBtn()" class="btn-shadow btn-wide float-right btn-pill btn-hover-shine btn btn-primary">Next</button>
+                <button type="button" id="prev-btn22" onclick="CheckForHideNextBtn()" class="btn-shadow float-right btn-wide btn-pill mr-3 btn btn-outline-secondary">Previous</button>
+            </div>
+        </div>
+    </div>
+</div>
+@section Scripts{
+    <script>
+        function Submit() {
+            //count Questions
+            var sel = $('#countQuections').text();
+
+            console.log(sel);
+
+            var data = [], countQuestion = parseInt(sel), question = {}, j = 1;
+
+            for (var i = 1; i < countQuestion; i++) {
+                if ($('#ID_QT' + i).text() == "Multi_Choice") {
+                    question = {
+                        QuestionID: $('#ID_Q' + i).text(),
+                        QuestionText: $('#Q' + i).text(),
+                        AnswerQ: $('input[name=inlineRadioOptions' + i + ']:checked').val()
+                    }
+                } else {
+                    question = {
+                        QuestionID: $('#ID_Q' + i).text(),
+                        QuestionText: $('#Q' + i).text(),
+                        AnswerQ: $('textarea[name=inlineRadioOptions' + i + ']').val()
+                    }
+                }
+                data.push(question);
+            }
+
+            $.ajax({
+                type: 'POST',
+                url: '@Url.Action("PostAnswers", "Courses")',
+                data: JSON.stringify(data),
+                contentType: "application/json;charset=UTF-8",
+                dataType: "json",
+                success: function(response) {
+                    if (response.result.length > 0) {
+                        for (var i = 0; i < response.result.length; i++) {
+                            if (response.result[i].isCorrect == true) {
+                                $('#AnsQ' + j).html('<div class="alert alert-success" role="alert"><span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span> Correct answer</div>');
+                            } else {
+                                $('#AnsQ' + j).html('<div class="alert alert-danger" role="alert"> <span class="glyphicon glyphicon-thumbs-down" aria-hidden="true"></span> Incorrect answer</div>');
+                            //    - The Correct Answer is < b > ' + response.result[i].CorrectAnswer + '</b >
+                            }
+                            j++;
+                        }
+                        Swal.fire({
+                            position: 'top-end',
+                            icon: 'success',
+                            title: 'Assessment submitted and reviewed successfully.',
+                            showConfirmButton: false,
+                            timer: 1500
+                        });
+                        $("#submit").hide();
+
+                    } else {
+                        alert("Something Wrong");
+                    }
+                },
+                error: function(response) {
+                }
+            });
+        }
+        function CheckForHideNextBtn() {
+            var url = document.URL;
+            var check = url.endsWith("222");
+            if (check) {
+                $("#prev-btn22").hide();
+                $("#next-btn22").show();
+                $("#submit").hide();
+            }
+        }
+        function CheckForHidePrevBtn() {
+            var url = document.URL;
+            var check = url.endsWith("122");
+            if (check) {
+                $("#next-btn22").hide();
+                $("#prev-btn22").show();
+                $("#submit").show();
+
+            }
+        }
+    </script>
+
+}

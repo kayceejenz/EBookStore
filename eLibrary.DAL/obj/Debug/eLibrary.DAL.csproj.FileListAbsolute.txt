@@ -1,0 +1,24 @@
+C:\Users\Precious\source\repos\eLibrarySystem\eLibrary.DAL\bin\Debug\eLibrary.DAL.dll.config
+C:\Users\Precious\source\repos\eLibrarySystem\eLibrary.DAL\bin\Debug\eLibrary.DAL.dll
+C:\Users\Precious\source\repos\eLibrarySystem\eLibrary.DAL\bin\Debug\eLibrary.DAL.pdb
+C:\Users\Precious\source\repos\eLibrarySystem\eLibrary.DAL\bin\Debug\EntityFramework.dll
+C:\Users\Precious\source\repos\eLibrarySystem\eLibrary.DAL\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\Precious\source\repos\eLibrarySystem\eLibrary.DAL\bin\Debug\EntityFramework.xml
+C:\Users\Precious\source\repos\eLibrarySystem\eLibrary.DAL\bin\Debug\EntityFramework.SqlServer.xml
+C:\Users\Precious\source\repos\eLibrarySystem\eLibrary.DAL\obj\Debug\eLibrary.DAL.csprojAssemblyReference.cache
+C:\Users\Precious\source\repos\eLibrarySystem\eLibrary.DAL\obj\Debug\eLibrary.DAL.csproj.CoreCompileInputs.cache
+C:\Users\Precious\source\repos\eLibrarySystem\eLibrary.DAL\obj\Debug\eLibrary.DAL.csproj.CopyComplete
+C:\Users\Precious\source\repos\eLibrarySystem\eLibrary.DAL\obj\Debug\eLibrary.DAL.dll
+C:\Users\Precious\source\repos\eLibrarySystem\eLibrary.DAL\obj\Debug\eLibrary.DAL.pdb
+C:\Users\kc\Documents\WEB PROJECTS\eLibrarySystem\eLibrary.DAL\bin\Debug\eLibrary.DAL.dll.config
+C:\Users\kc\Documents\WEB PROJECTS\eLibrarySystem\eLibrary.DAL\bin\Debug\eLibrary.DAL.dll
+C:\Users\kc\Documents\WEB PROJECTS\eLibrarySystem\eLibrary.DAL\bin\Debug\eLibrary.DAL.pdb
+C:\Users\kc\Documents\WEB PROJECTS\eLibrarySystem\eLibrary.DAL\bin\Debug\EntityFramework.dll
+C:\Users\kc\Documents\WEB PROJECTS\eLibrarySystem\eLibrary.DAL\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\kc\Documents\WEB PROJECTS\eLibrarySystem\eLibrary.DAL\bin\Debug\EntityFramework.xml
+C:\Users\kc\Documents\WEB PROJECTS\eLibrarySystem\eLibrary.DAL\bin\Debug\EntityFramework.SqlServer.xml
+C:\Users\kc\Documents\WEB PROJECTS\eLibrarySystem\eLibrary.DAL\obj\Debug\eLibrary.DAL.csproj.CoreCompileInputs.cache
+C:\Users\kc\Documents\WEB PROJECTS\eLibrarySystem\eLibrary.DAL\obj\Debug\eLibrary.DAL.csproj.CopyComplete
+C:\Users\kc\Documents\WEB PROJECTS\eLibrarySystem\eLibrary.DAL\obj\Debug\eLibrary.DAL.dll
+C:\Users\kc\Documents\WEB PROJECTS\eLibrarySystem\eLibrary.DAL\obj\Debug\eLibrary.DAL.pdb
+C:\Users\kc\Documents\WEB PROJECTS\eLibrarySystem\eLibrary.DAL\obj\Debug\eLibrary.DAL.csproj.AssemblyReference.cache

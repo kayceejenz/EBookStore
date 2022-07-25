@@ -1,0 +1,67 @@
+﻿@using System.Web.Optimization;
+@{
+    ViewBag.Title = "Manage Course Contents";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+    string ImageBase64 = Convert.ToBase64String(ViewBag.Article.Image);
+    string ImageSrc = string.Format("data:image/gif;base64,{0}", ImageBase64);
+}
+
+<div class="app-main__inner">
+    @Html.Partial("_NotificationAlert")
+    <div class="app-page-title">
+        <div class="page-title-wrapper">
+            <div class="page-title-heading">
+                <img src="@ImageSrc" style="width: 100px; height:100px;" class="img-thumbnail img-fluid img-responsive" />
+                <div>
+                    <h2>&nbsp;@ViewBag.Article.Description</h2>
+                </div>
+            </div>
+            <div class="page-title-actions">
+                <a class="mb-2 mr-2 btn-hover-shine btn btn-shadow btn-primary"
+                   href="@Url.Action("CreateArticleContent", "Article", new { ArticleID = ViewBag.Article.Id })">
+                    Add new content
+                </a>
+            </div>
+        </div>
+    </div>
+    <div id="accordion" class="accordion-wrapper mb-3">
+        @{
+            var number = 0;
+            foreach (var item in ViewBag.ArticleContents)
+            {
+                number++;
+                <div class="card">
+                    <div id="@item.Id" class="card-header">
+                        <button type="button" data-toggle="collapse" data-target="#C-@item.Id"
+                                aria-expanded="true" aria-controls="collapseOne"
+                                class="text-left m-0 p-0 btn btn-link btn-block">
+                            <h5 class="m-0 p-0">@number. @item.Heading</h5>
+                        </button>
+                        <div class="widget-content-right widget-content-actions">
+                            <div class="d-inline-block dropdown">
+                                <button type="button" aria-haspopup="true" data-toggle="dropdown" aria-expanded="false" class="border-0 btn-transition btn btn-link">
+                                    <i class="fa fa-ellipsis-h"></i>
+                                </button>
+                                <div tabindex="-1" role="menu" aria-hidden="true" class="dropdown-menu dropdown-menu-right">
+                                    <a href="@Url.Action("EditArticleContent", "Article", new { Id = item.Id,ArticleID = ViewBag.Article.Id })" tabindex="0" class="dropdown-item"><i class="dropdown-icon lnr-pencil"></i> Edit</a>
+                                    <button type="button" tabindex="0" class="dropdown-item" onclick="Prompt(@item.Id)"><i class="dropdown-icon ion-android-close"></i> REMOVE</button>
+                                    <a href="@Url.Action("ManageArticleContentQuestions", "QuestionBank", new { ArticleContentID = item.Id })" tabindex="0" class="dropdown-item"><i class="dropdown-icon lnr-pencil"></i> ASSIGN EXCERISE QUESTIONS</a>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div data-parent="#accordion" id="C-@item.Id" aria-labelledby="@item.Id"
+                         class="collapse">
+                        <div class="card-body">
+                            @Html.Raw(HttpUtility.HtmlDecode(item.Body))
+                        </div>
+                    </div>
+                </div>
+            }
+        }
+    </div>
+</div>
+@section Scripts{
+    @Scripts.Render("~/bundles/authorcontent")
+}

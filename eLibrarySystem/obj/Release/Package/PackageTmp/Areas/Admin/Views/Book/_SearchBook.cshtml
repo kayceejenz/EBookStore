@@ -1,0 +1,35 @@
+﻿@{
+    if (ViewBag.Books.Count > 0)
+    {
+        foreach (var item in ViewBag.Books)
+        {
+            <tr>
+                <td>@item.Name</td>
+                <td>@item.ISBN</td>
+                <td>@item.Author</td>
+                <td>@item.Categories</td>
+                <td>@item.Edition</td>
+                <td>
+                    <div class="widget-content-right widget-content-actions">
+                        <div class="d-inline-block dropdown">
+                            <button type="button" aria-haspopup="true" data-toggle="dropdown" aria-expanded="false" class="border-0 btn-transition btn btn-link">
+                                <i class="fa fa-ellipsis-h"></i>
+                            </button>
+                            <div tabindex="-1" role="menu" aria-hidden="true" class="dropdown-menu dropdown-menu-right">
+                                <a href="@Url.Action("EditBook","Book",new { id = item.Id})" tabindex="0" class="dropdown-item"><i class="dropdown-icon lnr-pencil"></i> Edit</a>
+                                <button type="button" tabindex="0" class="dropdown-item" onclick="DeleteBook(@item.Id)"><i class="dropdown-icon ion-android-close"></i> Remove</button>
+                            </div>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+        }
+    }
+    else
+    {
+        <tr>
+            <td colspan="6" class="text-center">No book found</td>
+        </tr>
+    }
+}
+

@@ -1,0 +1,125 @@
+﻿@model eLibrarySystem.Areas.Admin.ViewModels.BookVM
+@using System.Web.Optimization;
+@{
+    ViewBag.Title = "Manage Books";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="app-main__inner">
+    @Html.Partial("_NotificationAlert")
+    <div class="app-page-title">
+        <div class="page-title-wrapper">
+            <div class="page-title-heading">
+                <div class="page-title-icon">
+                    <i class="pe-7s-notebook icon-gradient bg-tempting-azure"></i>
+                </div>
+                <div>
+                    Book
+                    <div class="page-title-subheading">Manage all book in the system here.</div>
+                </div>
+            </div>
+            <div class="page-title-actions">
+                <a href="@Url.Action("AddBook","Book")" class="mb-2 mr-2 btn-hover-shine btn btn-shadow btn-primary">
+                    Add New Book
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="main-card mb-3 card">
+        <div class="card-body">
+            @using (Ajax.BeginForm("SearchBook", "Book", new AjaxOptions
+            {
+                InsertionMode = InsertionMode.Replace,
+                UpdateTargetId = "target",
+                LoadingElementDuration = 3000,
+                LoadingElementId = "",
+                HttpMethod = "Post",
+            }))
+            {
+                <div class="form-row">
+                    <div class="col-md-6">
+                        <div class="position-relative form-group">
+                            <label for="Name">Title of book</label>
+                            @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control", placeholder = "Title" } })
+                            <div class="invalid-feedback">
+                                Title required
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="position-relative form-group">
+                            <label for="Author">Author</label>
+                            @Html.EditorFor(model => model.Author, new { htmlAttributes = new { @class = "form-control", placeholder = "Author" } })
+                            <div class="invalid-feedback">
+                                Author required
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="position-relative form-group">
+                            <label for="ISBN">ISBN</label>
+                            @Html.EditorFor(model => model.ISBN, new { htmlAttributes = new { @class = "form-control", placeholder = "ISBN" } })
+                            <div class="invalid-feedback">
+                                ISBN required
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="position-relative form-group">
+                            <label for="examplePassword22">Category</label>
+                            @Html.DropDownListFor(model => model.CategoryID, (IEnumerable<SelectListItem>)ViewBag.Category, "-- Select category --", new { @class = "form-control" })
+                        </div>
+                    </div>
+
+                </div>
+                <button type="submit" class="ladda-button btn btn-shadow btn-primary block-element-btn-example-1 btn-block" data-style="zoom-in">
+                    <span class="ladda-label">Search</span>
+                    <span class="ladda-spinner"></span>
+                </button>
+                <div class="divider"></div>
+                <div class="main-card mb-3 card element-block-example">
+                    <div class="card-header">List of books</div>
+                    <div class="card-body">
+                        <table style="width: 100%;" class="table table-hover table-striped table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>Title</th>
+                                    <th>ISBN</th>
+                                    <th>Author</th>
+                                    <th>Category</th>
+                                    <th>Edition</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody id="target">
+                                <tr>
+                                    <td colspan="6" class="text-center">No record</td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                    </div>
+                </div>
+                <div class="body-block-example-1 d-none">
+                    <div class="loader bg-transparent no-shadow p-0">
+                        <div class="ball-grid-pulse">
+                            <div class="bg-white"></div>
+                            <div class="bg-white"></div>
+                            <div class="bg-white"></div>
+                            <div class="bg-white"></div>
+                            <div class="bg-white"></div>
+                            <div class="bg-white"></div>
+                            <div class="bg-white"></div>
+                            <div class="bg-white"></div>
+                            <div class="bg-white"></div>
+                        </div>
+                    </div>
+                </div>
+
+            }
+        </div>
+    </div>
+</div>
+@section Scripts{
+    @Scripts.Render("~/bundles/book")
+}

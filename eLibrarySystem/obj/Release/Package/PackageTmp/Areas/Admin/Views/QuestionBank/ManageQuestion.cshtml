@@ -1,0 +1,128 @@
+﻿@using eLibrary.DAL.Entity
+@using System.Web.Optimization;
+@{
+    ViewBag.Title = "Manage Questions";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+    string ImageBase64 = Convert.ToBase64String(ViewBag.Article.Image);
+    string ImageSrc = string.Format("data:image/gif;base64,{0}", ImageBase64);
+}
+<div class="app-main__inner">
+    @Html.Partial("_NotificationAlert")
+    <div class="app-page-title">
+        <div class="page-title-wrapper">
+            <div class="page-title-heading">
+                <img src="@ImageSrc" style="width: 100px; height:100px;" class="img-thumbnail img-fluid img-responsive" />
+                <div>
+                    <h2>&nbsp;@ViewBag.Article.Description</h2>
+                </div>
+            </div>
+            <div class="page-title-actions">
+                <a href="@Url.Action("AddQuestion", "QuestionBank", new {area = "Admin",ArticleID = ViewBag.ArticleID})" class="mb-2 mr-2 btn-hover-shine btn btn-shadow btn-primary">
+                    Add new question
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="main-card mb-3 card">
+        <div class="card-body">
+            @using (Html.BeginForm("UploadQuestion", "QuestionBank", FormMethod.Post, new { id = "SearchQuestion", enctype = "multipart/form-data", @class = "validate", novalidate = true, }))
+            {
+                @Html.AntiForgeryToken()
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="input-group">
+                            <div class="custom-file">
+                                <input type="file" class="custom-file-input" id="BackInp" name="file" required />
+                                <label class="custom-file-label" for="customFile">Select file</label>
+                                <div class="invalid-feedback">
+                                    CSV file required
+                                </div>
+                            </div>
+                            <input type="hidden" name="ArticleID" value="@ViewBag.ArticleID" />
+                            <div class="input-group-append">
+                                <button class="btn-hover-shine btn btn-shadow btn-primary"><i class="fa fa-upload"></i> Upload</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+    <div class="main-card mb-3 card">
+        <div class="card-body">
+            <table style="width: 100%;" id="example" class="table table-hover table-striped table-bordered">
+                <thead>
+                    <tr>
+                        <th>Question Type</th>
+                        <th>Question</th>
+                        <th>Options</th>
+                        <th>Correct Answer</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (ViewBag.Questions != null)
+                    {
+                        foreach (var questionmodel in ViewBag.Questions)
+                        {
+                            <tr>
+                                @if (questionmodel.QuestionTypeUpload != null)
+                                {
+                                    <td>@questionmodel.QuestionTypeUpload</td>
+                                }
+                                else
+                                {
+                                    <td>@questionmodel.QuestionType</td>
+                                }
+                                <td style="width: 200px;">@Html.Raw(questionmodel.Question)</td>
+                                <td>
+                                    @if (questionmodel.QuestionTypeUpload == "Multi_Choice" || questionmodel.QuestionType == QuestionType.Multi_Choice)
+                                    {
+                                        <div>
+                                            @foreach (var option in questionmodel.OptionBank)
+                                            {
+                                                <div class="input-group">
+                                                    <div class="input-group-prepend">
+                                                        <span class="input-group-text">
+                                                            <input aria-label="Checkbox for following text input" type="radio" id="@option.Id" class="">
+                                                        </span>
+                                                    </div>
+                                                    <input type="text" class="form-control" value="@option.OptionTxt" readonly>
+                                                </div>
+
+                                            }
+                                        </div>
+                                    }
+                                    else if (questionmodel.QuestionTypeUpload == "Fill_in_the_blank" || questionmodel.QuestionType == QuestionType.Fill_in_the_blank)
+                                    {
+                                        <textarea class="form-control" rows="3"></textarea>
+                                    }
+                                </td>
+                                <td>
+                                    @questionmodel.Answer.AnswerText
+                                </td>
+                                <td>
+                                    <div class="widget-content-right widget-content-actions">
+                                        <div class="d-inline-block dropdown">
+                                            <button type="button" aria-haspopup="true" data-toggle="dropdown" aria-expanded="false" class="border-0 btn-transition btn btn-link">
+                                                <i class="fa fa-ellipsis-h"></i>
+                                            </button>
+                                            <div tabindex="-1" role="menu" aria-hidden="true" class="dropdown-menu dropdown-menu-right">
+                                                <a href="@Url.Action("EditQuestion", "QuestionBank", new {area = "Admin",QuestionID = questionmodel.Id})" tabindex="0" class="dropdown-item"><i class="dropdown-icon lnr-pencil"></i> Edit</a>
+                                                <button type="button" tabindex="0" class="dropdown-item" onclick="Prompt(@questionmodel.Id)"><i class="dropdown-icon ion-android-close"></i> Remove</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                        }
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+@section Scripts{
+    @Scripts.Render("bundles/validation")
+    @Scripts.Render("bundles/article")
+}

@@ -1,0 +1,62 @@
+﻿@using eLibrary.DAL.Entity
+@using System.Web.Optimization;
+@{
+    ViewBag.Title = "Category";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@Styles.Render("~/Content/homestyle")
+<div class="app-main__inner">
+    <div class="app-page-title app-page-title-simple">
+        <div class="page-title-wrapper">
+            <div class="page-title-heading">
+                <div>
+                    <div class="page-title-head center-elem">
+                        <span class="d-inline-block pr-2">
+                            <i class="lnr-apartment icon-gradient bg-mean-fruit"></i>
+                        </span>
+                        <span class="d-inline-block">Category page</span>
+                    </div>
+                    <div class="page-title-subheading opacity-10">
+                        <nav class="" aria-label="breadcrumb">
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item">
+                                    <a>
+                                        <i aria-hidden="true" class="fa fa-home"></i>
+                                    </a>
+                                </li>
+                                <li class="active breadcrumb-item" aria-current="page">
+                                    @ViewBag.Category
+                                </li>
+                                <li class="active breadcrumb-item" aria-current="page">
+                                    @ViewBag.SubCategory
+                                </li>
+                            </ol>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+
+            <!--loader-->
+            @Html.Partial("_Loader")
+        </div>
+
+        <!-- Search -->
+        <div id="Book"></div>
+    </div>
+</div>
+@section Scripts{
+    <script>
+        $(document).ready(function () {
+            $("#Book").load('@Url.Action("GetBookUnderSubCategory", "Home",new {area="",Id=Global.SubCategoryID })', "", function (responseText, textStatus, XMLHttpRequest) {
+                $("#Loader").hide();
+                initFavs();
+            });
+        });
+    </script>
+    @Scripts.Render("~/bundles/homeutil")
+}

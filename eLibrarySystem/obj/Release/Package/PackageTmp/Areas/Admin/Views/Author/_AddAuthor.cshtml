@@ -1,0 +1,116 @@
+﻿@model eLibrarySystem.Areas.Admin.ViewModels.AuthorVM
+<div class="modal fade" id="Create" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Add Author</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            @using (Html.BeginForm("AddAuthor", "Author", FormMethod.Post, new { area = "Admin", @class = "validate", novalidate = true, enctype = "multipart/form-data" }))
+            {
+                @Html.AntiForgeryToken()
+            <div class="modal-body">
+                <div class="position-relative form-group">
+                    <img class="img-responsive img-thumbnail  img-fluid d-block" id="FrontPage" src="#" onchange="ShowPreview(this)" onerror="this.src='/Contents/images/images.png'" alt="Favicon" />
+                    <div class="custom-file">
+                        <input type="file" class="custom-file-input" id="FrontInp" name="Image" required />
+                        <label class="custom-file-label" for="customFile">Select file</label>
+                        <div class="valid-feedback">
+                            Nice!
+                        </div>
+                        <div class="invalid-feedback">
+                            Photo required
+                        </div>
+                    </div>
+                </div>
+                <div class="position-relative form-group">
+                    <label for="Firstname" class="col-form-label">Name</label><span class="text-danger">*</span>
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <div class="input-group-text">
+                                <i class="ion-person"></i>
+                            </div>
+                        </div>
+                        @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control", placeholder = "Enter name", required = true } })
+                        <div class="valid-feedback">
+                            Nice name!
+                        </div>
+                        <div class="invalid-feedback">
+                            Name required
+                        </div>
+                    </div>
+                </div>
+                <div class="position-relative form-group">
+                    <label for="DateOfBirth" class="col-form-label">Date of birth</label><span class="text-danger">*</span>
+                    <div class="input-group">
+                        <div class="input-group-prepend datepicker-trigger">
+                            <div class="input-group-text">
+                                <i class="fa fa-calendar-alt"></i>
+                            </div>
+                        </div>
+                        @Html.EditorFor(model => model.DateOfBirth, new { htmlAttributes = new { @class = "form-control", placeholder = "Enter last name", required = true, data_toggle = "datepicker-icon" } })
+                        <div class="valid-feedback">
+                            Nice!
+                        </div>
+                        <div class="invalid-feedback">
+                            Date of birth required
+                        </div>
+                    </div>
+                </div>
+                <div class="position-relative form-group">
+                    <label for="Email" class="col-form-label">Contact address</label>
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <div class="input-group-text">
+                                <i class="fa fa-map"></i>
+                            </div>
+                        </div>
+                        @Html.TextAreaFor(model => model.ContactAddress, 2, 0, new { @class = "form-control", placeholder = "Enter contact address" })
+                    </div>
+                </div>
+                <div class="position-relative form-group">
+                    <label for="StateOfOrigin" class="col-form-label">State of origin</label>
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <div class="input-group-text">
+                                <i class="fa fa-map-pin"></i>
+                            </div>
+                        </div>
+                        @Html.EditorFor(model => model.StateOfOrigin, new { htmlAttributes = new { @class = "form-control", placeholder = "Enter State"} })
+                    </div>
+                </div>
+                <div class="position-relative form-group">
+                    <label for="StateOfOrigin" class="col-form-label">State of origin</label>
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <div class="input-group-text">
+                                <i class="fa fa-globe"></i>
+                            </div>
+                        </div>
+                        @Html.EditorFor(model => model.CountryOfOrigin, new { htmlAttributes = new { @class = "form-control", placeholder = "Enter Country" } })
+                    </div>
+                </div>
+                <div class="divider"></div>
+                <div class="position-relative form-group">
+                    <label for="Username" class="col-form-label">Biography</label>
+                    <div class="input-group">
+                        @Html.TextAreaFor(model => model.Biography, 8, 0, new { @class = "form-control", placeholder = "Author's biography" })
+                    </div>
+                </div>
+
+            </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="submit" class="ladda-button btn btn-shadow btn-primary" data-style="zoom-in">
+                        <span class="ladda-label">Add</span>
+                        <span class="ladda-spinner"></span>
+                    </button>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+

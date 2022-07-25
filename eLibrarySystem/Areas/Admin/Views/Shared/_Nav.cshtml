@@ -1,0 +1,38 @@
+﻿@using eLibrary.DAL.Entity
+@model List<Menu>
+
+<ul class="vertical-nav-menu">
+    @{
+        <li class="app-sidebar__heading">Access Links</li>
+        foreach (var menu in Model.Where(x => x.isAssigned == true))
+        {
+            if (!menu._isMenu)
+            {
+                <li>
+                    <a href="@(menu._url)">
+                        <i class="metismenu-icon @(menu._icon)"></i>@(menu._stringText)
+                    </a>
+                </li>
+            }
+            else
+            {
+                <li>
+                    <a href="#">
+                        <i class="metismenu-icon @(menu._icon)"></i>@(menu._stringText)
+                        <i class="metismenu-state-icon pe-7s-angle-down caret-left"></i>
+                    </a>
+                    <ul>
+                        @foreach (var submenu in menu._childMenus.Where(x => x.isAssigned == true))
+                        {
+                            <li>
+                                <a href="@(submenu._url)">
+                                    <i class="metismenu-icon"></i>@(submenu._stringText)
+                                </a>
+                            </li>
+                        }
+                    </ul>
+                </li>
+            }
+        }
+    }
+</ul>

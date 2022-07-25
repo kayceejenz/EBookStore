@@ -1,0 +1,60 @@
+﻿@using System.Web.Optimization;
+@model eLibrarySystem.Areas.Admin.ViewModels.ArticleContentVM
+@{
+
+    ViewBag.Title = "Edit Article Content";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+    string ImageBase64 = Convert.ToBase64String(ViewBag.Article.Image);
+    string ImageSrc = string.Format("data:image/gif;base64,{0}", ImageBase64);
+}
+<div class="app-main__inner">
+    @Html.Partial("_NotificationAlert")
+    <div class="app-page-title">
+        <div class="page-title-wrapper">
+            <div class="page-title-heading">
+                <img src="@ImageSrc" style="width: 100px; height:100px;" class="img-thumbnail img-fluid img-responsive" />
+                <div>
+                    <h2>&nbsp;@ViewBag.Article.Description</h2>
+                </div>
+            </div>
+        </div>
+    </div>
+    @using (Html.BeginForm("EditArticleContent", "Article", FormMethod.Post, new { area = "Admin", enctype = "multipart/form-data", @class = "validate", novalidate = true }))
+    {
+        @Html.AntiForgeryToken()
+        @Html.HiddenFor(model => model.ArticleID)
+        @Html.HiddenFor(model => model.Id)
+        <div class="main-card mb-3 card">
+            <div class="card-body">
+                <h5 class="card-title">Basic</h5>
+                <div class="position-relative form-group">
+                    <label for="AppName" class="col-form-label">Content heading</label><span class="text-danger">*</span>
+                    @Html.EditorFor(model => model.Heading, new { htmlAttributes = new { @class = "form-control", placeholder = "Content heading", required = true } })
+                    <div class="valid-feedback">
+                        Looks good!
+                    </div>
+                    <div class="invalid-feedback">
+                        Content heading is required
+                    </div>
+                </div>
+                <div class="position-relative form-group">
+                    <label for="Address" class="col-form-label">Content body</label><span class="text-danger">*</span>
+                    @Html.TextAreaFor(model => model.Body, 10, 0, new { @class = "form-control", placeholder = "Enter content body", required = true })
+                    <div class="valid-feedback">
+                        Looks good!
+                    </div>
+                    <div class="invalid-feedback">
+                        Content body is required
+                    </div>
+                </div>
+            </div>
+        </div>
+        <button class="mb-4 mt-n2 btn btn-primary"><i class="fa fa-upload"></i> Update changes</button>
+    }
+</div>
+@section Scripts{
+    @Scripts.Render("~/bundles/validation")
+    @Scripts.Render("~/bundles/tinymc")
+    @Scripts.Render("~/bundles/editor")
+}
+

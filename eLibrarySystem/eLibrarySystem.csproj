@@ -1,0 +1,876 @@
+﻿<Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\EntityFramework.6.4.4\build\EntityFramework.props" Condition="Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.props')" />
+  <Import Project="..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.0\build\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props" Condition="Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.0\build\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" />
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{85F3E73F-6287-4C56-858C-980B6CE57215}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>eLibrarySystem</RootNamespace>
+    <AssemblyName>eLibrarySystem</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <UseIISExpress>true</UseIISExpress>
+    <Use64BitIISExpress />
+    <IISExpressSSLPort>44370</IISExpressSSLPort>
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+    <UseGlobalApplicationHostFile />
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Antlr3.Runtime, Version=3.3.1.7705, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\WebGrease.1.3.0\lib\Antlr3.Runtime.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.4.4\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.4.4\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="log4net">
+      <HintPath>..\..\..\..\..\..\BlueTag\SchoolPortalManagementSystem\SchoolPortalManagementSystem\bin\log4net.dll</HintPath>
+    </Reference>
+    <Reference Include="LumenWorks.Framework.IO, Version=3.8.0.0, Culture=neutral, PublicKeyToken=5ad3ea2f85776344, processorArchitecture=MSIL">
+      <HintPath>..\packages\LumenWorks.Framework.IO.3.8.0\lib\net20\LumenWorks.Framework.IO.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.Core, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.Core.2.2.3\lib\net45\Microsoft.AspNet.Identity.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.EntityFramework, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.EntityFramework.2.2.3\lib\net45\Microsoft.AspNet.Identity.EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.Owin, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.Owin.2.2.3\lib\net45\Microsoft.AspNet.Identity.Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.Owin, Version=4.1.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.4.1.1\lib\net45\Microsoft.Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Host.SystemWeb">
+      <HintPath>..\..\..\..\..\..\BlueTag\SchoolPortalManagementSystem\SchoolPortalManagementSystem\bin\Microsoft.Owin.Host.SystemWeb.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security, Version=4.1.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Security.4.1.1\lib\net45\Microsoft.Owin.Security.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.Cookies, Version=3.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Security.Cookies.3.0.1\lib\net45\Microsoft.Owin.Security.Cookies.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.Google, Version=4.1.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Security.Google.4.1.1\lib\net45\Microsoft.Owin.Security.Google.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.OAuth, Version=4.1.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Security.OAuth.4.1.1\lib\net45\Microsoft.Owin.Security.OAuth.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.10.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="Owin, Version=1.0.0.0, Culture=neutral, PublicKeyToken=f0ebd12fd5e55cc5, processorArchitecture=MSIL">
+      <HintPath>..\packages\Owin.1.0\lib\net40\Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="PagedList, Version=1.17.0.0, Culture=neutral, PublicKeyToken=abbb863e9397c5e1, processorArchitecture=MSIL">
+      <HintPath>..\packages\PagedList.1.17.0.0\lib\net40\PagedList.dll</HintPath>
+    </Reference>
+    <Reference Include="PagedList.Mvc, Version=4.5.0.0, Culture=neutral, PublicKeyToken=abbb863e9397c5e1, processorArchitecture=MSIL">
+      <HintPath>..\packages\PagedList.Mvc.4.5.0.0\lib\net40\PagedList.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Net.Http.WebRequest" />
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Optimization, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Web.Optimization.1.0.0\lib\net40\System.Web.Optimization.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="Web.Optimization, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Web.Optimization.0.0.8\lib\net40\Web.Optimization.dll</HintPath>
+    </Reference>
+    <Reference Include="WebGrease, Version=1.3.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\WebGrease.1.3.0\lib\WebGrease.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="System.Web.Razor">
+      <HintPath>..\packages\Microsoft.AspNet.Razor.3.2.4\lib\net45\System.Web.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Webpages">
+      <HintPath>..\packages\Microsoft.AspNet.Webpages.3.2.4\lib\net45\System.Web.Webpages.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Webpages.Deployment">
+      <HintPath>..\packages\Microsoft.AspNet.Webpages.3.2.4\lib\net45\System.Web.Webpages.Deployment.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Webpages.Razor">
+      <HintPath>..\packages\Microsoft.AspNet.Webpages.3.2.4\lib\net45\System.Web.Webpages.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Helpers">
+      <HintPath>..\packages\Microsoft.AspNet.Webpages.3.2.4\lib\net45\System.Web.Helpers.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Web.Infrastructure">
+      <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Mvc">
+      <HintPath>..\packages\Microsoft.AspNet.Mvc.5.2.4\lib\net45\System.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform">
+      <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.0\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\Admin\Scripts\Afflilate.js" />
+    <Content Include="Areas\Admin\Scripts\Article.js" />
+    <Content Include="Areas\Admin\Scripts\ArticleContent.js" />
+    <Content Include="Areas\Admin\Scripts\Category.js" />
+    <Content Include="Areas\Admin\Scripts\Role.js" />
+    <Content Include="Areas\Admin\Scripts\Author.js" />
+    <Content Include="Areas\Admin\Scripts\Book.js" />
+    <Content Include="Areas\Admin\Scripts\User.js" />
+    <Content Include="Contents\fonts\AD.svg" />
+    <Content Include="Contents\fonts\AE.svg" />
+    <Content Include="Contents\fonts\AF.svg" />
+    <Content Include="Contents\fonts\AG.svg" />
+    <Content Include="Contents\fonts\AI.svg" />
+    <Content Include="Contents\fonts\AL.svg" />
+    <Content Include="Contents\fonts\AM.svg" />
+    <Content Include="Contents\fonts\AO.svg" />
+    <Content Include="Contents\fonts\AR.svg" />
+    <Content Include="Contents\fonts\AS.svg" />
+    <Content Include="Contents\fonts\AT.svg" />
+    <Content Include="Contents\fonts\AU.svg" />
+    <Content Include="Contents\fonts\AW.svg" />
+    <Content Include="Contents\fonts\AX.svg" />
+    <Content Include="Contents\fonts\AZ.svg" />
+    <Content Include="Contents\fonts\BA.svg" />
+    <Content Include="Contents\fonts\BB.svg" />
+    <Content Include="Contents\fonts\BD.svg" />
+    <Content Include="Contents\fonts\BE.svg" />
+    <Content Include="Contents\fonts\BF.svg" />
+    <Content Include="Contents\fonts\BG.svg" />
+    <Content Include="Contents\fonts\BH.svg" />
+    <Content Include="Contents\fonts\BI.svg" />
+    <Content Include="Contents\fonts\BJ.svg" />
+    <Content Include="Contents\fonts\BL.svg" />
+    <Content Include="Contents\fonts\BM.svg" />
+    <Content Include="Contents\fonts\BN.svg" />
+    <Content Include="Contents\fonts\BO.svg" />
+    <Content Include="Contents\fonts\BR.svg" />
+    <Content Include="Contents\fonts\BS.svg" />
+    <Content Include="Contents\fonts\BT.svg" />
+    <Content Include="Contents\fonts\BV.svg" />
+    <Content Include="Contents\fonts\BW.svg" />
+    <Content Include="Contents\fonts\BY.svg" />
+    <Content Include="Contents\fonts\BZ.svg" />
+    <Content Include="Contents\fonts\CA.svg" />
+    <Content Include="Contents\fonts\CC.svg" />
+    <Content Include="Contents\fonts\CD.svg" />
+    <Content Include="Contents\fonts\CF.svg" />
+    <Content Include="Contents\fonts\CG.svg" />
+    <Content Include="Contents\fonts\CH.svg" />
+    <Content Include="Contents\fonts\CI.svg" />
+    <Content Include="Contents\fonts\CK.svg" />
+    <Content Include="Contents\fonts\CL.svg" />
+    <Content Include="Contents\fonts\CM.svg" />
+    <Content Include="Contents\fonts\CN.svg" />
+    <Content Include="Contents\fonts\CO.svg" />
+    <Content Include="Contents\fonts\CR.svg" />
+    <Content Include="Contents\fonts\CU.svg" />
+    <Content Include="Contents\fonts\CV.svg" />
+    <Content Include="Contents\fonts\CW.svg" />
+    <Content Include="Contents\fonts\CX.svg" />
+    <Content Include="Contents\fonts\CY.svg" />
+    <Content Include="Contents\fonts\CZ.svg" />
+    <Content Include="Contents\fonts\DE.svg" />
+    <Content Include="Contents\fonts\DJ.svg" />
+    <Content Include="Contents\fonts\DK.svg" />
+    <Content Include="Contents\fonts\DM.svg" />
+    <Content Include="Contents\fonts\DO.svg" />
+    <Content Include="Contents\fonts\DZ.svg" />
+    <Content Include="Contents\fonts\EC.svg" />
+    <Content Include="Contents\fonts\EE.svg" />
+    <Content Include="Contents\fonts\EG.svg" />
+    <Content Include="Contents\fonts\ER.svg" />
+    <Content Include="Contents\fonts\ES.svg" />
+    <Content Include="Contents\fonts\ET.svg" />
+    <Content Include="Contents\fonts\EU.svg" />
+    <Content Include="Contents\fonts\fa-solid-900.svg" />
+    <Content Include="Contents\fonts\FI.svg" />
+    <Content Include="Contents\fonts\FJ.svg" />
+    <Content Include="Contents\fonts\FK.svg" />
+    <Content Include="Contents\fonts\FM.svg" />
+    <Content Include="Contents\fonts\FO.svg" />
+    <Content Include="Contents\fonts\FR.svg" />
+    <Content Include="Contents\fonts\GA.svg" />
+    <Content Include="Contents\fonts\GB-ENG.svg" />
+    <Content Include="Contents\fonts\GB-NIR.svg" />
+    <Content Include="Contents\fonts\GB-SCT.svg" />
+    <Content Include="Contents\fonts\GB-WLS.svg" />
+    <Content Include="Contents\fonts\GB-ZET.svg" />
+    <Content Include="Contents\fonts\GB.svg" />
+    <Content Include="Contents\fonts\GD.svg" />
+    <Content Include="Contents\fonts\GE.svg" />
+    <Content Include="Contents\fonts\GF.svg" />
+    <Content Include="Contents\fonts\GG.svg" />
+    <Content Include="Contents\fonts\GH.svg" />
+    <Content Include="Contents\fonts\GI.svg" />
+    <Content Include="Contents\fonts\GL.svg" />
+    <Content Include="Contents\fonts\GM.svg" />
+    <Content Include="Contents\fonts\GN.svg" />
+    <Content Include="Contents\fonts\GP.svg" />
+    <Content Include="Contents\fonts\GQ.svg" />
+    <Content Include="Contents\fonts\GR.svg" />
+    <Content Include="Contents\fonts\GS.svg" />
+    <Content Include="Contents\fonts\GT.svg" />
+    <Content Include="Contents\fonts\GU.svg" />
+    <Content Include="Contents\fonts\GW.svg" />
+    <Content Include="Contents\fonts\GY.svg" />
+    <Content Include="Contents\fonts\HK.svg" />
+    <Content Include="Contents\fonts\HM.svg" />
+    <Content Include="Contents\fonts\HN.svg" />
+    <Content Include="Contents\fonts\HR.svg" />
+    <Content Include="Contents\fonts\HT.svg" />
+    <Content Include="Contents\fonts\HU.svg" />
+    <Content Include="Contents\fonts\ID.svg" />
+    <Content Include="Contents\fonts\IE.svg" />
+    <Content Include="Contents\fonts\IL.svg" />
+    <Content Include="Contents\fonts\IM.svg" />
+    <Content Include="Contents\fonts\IN.svg" />
+    <Content Include="Contents\fonts\IO.svg" />
+    <Content Include="Contents\fonts\ionicons.svg" />
+    <Content Include="Contents\fonts\IQ.svg" />
+    <Content Include="Contents\fonts\IR.svg" />
+    <Content Include="Contents\fonts\IS.svg" />
+    <Content Include="Contents\fonts\IT.svg" />
+    <Content Include="Contents\fonts\JE.svg" />
+    <Content Include="Contents\fonts\JM.svg" />
+    <Content Include="Contents\fonts\JO.svg" />
+    <Content Include="Contents\fonts\JP.svg" />
+    <Content Include="Contents\fonts\KE.svg" />
+    <Content Include="Contents\fonts\KG.svg" />
+    <Content Include="Contents\fonts\KH.svg" />
+    <Content Include="Contents\fonts\KI.svg" />
+    <Content Include="Contents\fonts\KM.svg" />
+    <Content Include="Contents\fonts\KN.svg" />
+    <Content Include="Contents\fonts\KP.svg" />
+    <Content Include="Contents\fonts\KR.svg" />
+    <Content Include="Contents\fonts\KW.svg" />
+    <Content Include="Contents\fonts\KY.svg" />
+    <Content Include="Contents\fonts\KZ.svg" />
+    <Content Include="Contents\fonts\LA.svg" />
+    <Content Include="Contents\fonts\LB.svg" />
+    <Content Include="Contents\fonts\LC.svg" />
+    <Content Include="Contents\fonts\LGBT.svg" />
+    <Content Include="Contents\fonts\LI.svg" />
+    <Content Include="Contents\fonts\Linearicons-Free.svg" />
+    <Content Include="Contents\fonts\LK.svg" />
+    <Content Include="Contents\fonts\LR.svg" />
+    <Content Include="Contents\fonts\LS.svg" />
+    <Content Include="Contents\fonts\LT.svg" />
+    <Content Include="Contents\fonts\LU.svg" />
+    <Content Include="Contents\fonts\LV.svg" />
+    <Content Include="Contents\fonts\LY.svg" />
+    <Content Include="Contents\fonts\MA.svg" />
+    <Content Include="Contents\fonts\MC.svg" />
+    <Content Include="Contents\fonts\MD.svg" />
+    <Content Include="Contents\fonts\ME.svg" />
+    <Content Include="Contents\fonts\MF.svg" />
+    <Content Include="Contents\fonts\MG.svg" />
+    <Content Include="Contents\fonts\MH.svg" />
+    <Content Include="Contents\fonts\MK.svg" />
+    <Content Include="Contents\fonts\ML.svg" />
+    <Content Include="Contents\fonts\MM.svg" />
+    <Content Include="Contents\fonts\MN.svg" />
+    <Content Include="Contents\fonts\MO.svg" />
+    <Content Include="Contents\fonts\MP.svg" />
+    <Content Include="Contents\fonts\MQ.svg" />
+    <Content Include="Contents\fonts\MR.svg" />
+    <Content Include="Contents\fonts\MS.svg" />
+    <Content Include="Contents\fonts\MT.svg" />
+    <Content Include="Contents\fonts\MU.svg" />
+    <Content Include="Contents\fonts\MV.svg" />
+    <Content Include="Contents\fonts\MW.svg" />
+    <Content Include="Contents\fonts\MX.svg" />
+    <Content Include="Contents\fonts\MY.svg" />
+    <Content Include="Contents\fonts\MZ.svg" />
+    <Content Include="Contents\fonts\NA.svg" />
+    <Content Include="Contents\fonts\NC.svg" />
+    <Content Include="Contents\fonts\NE.svg" />
+    <Content Include="Contents\fonts\NF.svg" />
+    <Content Include="Contents\fonts\NG.svg" />
+    <Content Include="Contents\fonts\NI.svg" />
+    <Content Include="Contents\fonts\NL.svg" />
+    <Content Include="Contents\fonts\NO.svg" />
+    <Content Include="Contents\fonts\NP.svg" />
+    <Content Include="Contents\fonts\NR.svg" />
+    <Content Include="Contents\fonts\NU.svg" />
+    <Content Include="Contents\fonts\NZ.svg" />
+    <Content Include="Contents\fonts\OM.svg" />
+    <Content Include="Contents\fonts\PA.svg" />
+    <Content Include="Contents\fonts\Pe-icon-7-stroke.svg" />
+    <Content Include="Contents\fonts\PE.svg" />
+    <Content Include="Contents\fonts\PF.svg" />
+    <Content Include="Contents\fonts\PG.svg" />
+    <Content Include="Contents\fonts\PH.svg" />
+    <Content Include="Contents\fonts\PK.svg" />
+    <Content Include="Contents\fonts\PL.svg" />
+    <Content Include="Contents\fonts\PM.svg" />
+    <Content Include="Contents\fonts\PN.svg" />
+    <Content Include="Contents\fonts\PR.svg" />
+    <Content Include="Contents\fonts\PS.svg" />
+    <Content Include="Contents\fonts\PT.svg" />
+    <Content Include="Contents\fonts\PW.svg" />
+    <Content Include="Contents\fonts\PY.svg" />
+    <Content Include="Contents\fonts\QA.svg" />
+    <Content Include="Contents\fonts\RE.svg" />
+    <Content Include="Contents\fonts\RO.svg" />
+    <Content Include="Contents\fonts\RS.svg" />
+    <Content Include="Contents\fonts\RU.svg" />
+    <Content Include="Contents\fonts\RW.svg" />
+    <Content Include="Contents\fonts\SA.svg" />
+    <Content Include="Contents\fonts\SB.svg" />
+    <Content Include="Contents\fonts\SC.svg" />
+    <Content Include="Contents\fonts\SD.svg" />
+    <Content Include="Contents\fonts\SE.svg" />
+    <Content Include="Contents\fonts\SG.svg" />
+    <Content Include="Contents\fonts\SH.svg" />
+    <Content Include="Contents\fonts\SI.svg" />
+    <Content Include="Contents\fonts\SJ.svg" />
+    <Content Include="Contents\fonts\SK.svg" />
+    <Content Include="Contents\fonts\SL.svg" />
+    <Content Include="Contents\fonts\SM.svg" />
+    <Content Include="Contents\fonts\SN.svg" />
+    <Content Include="Contents\fonts\SO.svg" />
+    <Content Include="Contents\fonts\SR.svg" />
+    <Content Include="Contents\fonts\SS.svg" />
+    <Content Include="Contents\fonts\ST.svg" />
+    <Content Include="Contents\fonts\SV.svg" />
+    <Content Include="Contents\fonts\SX.svg" />
+    <Content Include="Contents\fonts\SY.svg" />
+    <Content Include="Contents\fonts\SZ.svg" />
+    <Content Include="Contents\fonts\TC.svg" />
+    <Content Include="Contents\fonts\TD.svg" />
+    <Content Include="Contents\fonts\TF.svg" />
+    <Content Include="Contents\fonts\TG.svg" />
+    <Content Include="Contents\fonts\TH.svg" />
+    <Content Include="Contents\fonts\TJ.svg" />
+    <Content Include="Contents\fonts\TK.svg" />
+    <Content Include="Contents\fonts\TL.svg" />
+    <Content Include="Contents\fonts\TM.svg" />
+    <Content Include="Contents\fonts\TN.svg" />
+    <Content Include="Contents\fonts\TO.svg" />
+    <Content Include="Contents\fonts\TR.svg" />
+    <Content Include="Contents\fonts\TT.svg" />
+    <Content Include="Contents\fonts\TV.svg" />
+    <Content Include="Contents\fonts\TW.svg" />
+    <Content Include="Contents\fonts\TZ.svg" />
+    <Content Include="Contents\fonts\UA.svg" />
+    <Content Include="Contents\fonts\UG.svg" />
+    <Content Include="Contents\fonts\UM.svg" />
+    <Content Include="Contents\fonts\US-CA.svg" />
+    <Content Include="Contents\fonts\US.svg" />
+    <Content Include="Contents\fonts\UY.svg" />
+    <Content Include="Contents\fonts\UZ.svg" />
+    <Content Include="Contents\fonts\VA.svg" />
+    <Content Include="Contents\fonts\VC.svg" />
+    <Content Include="Contents\fonts\VE.svg" />
+    <Content Include="Contents\fonts\VG.svg" />
+    <Content Include="Contents\fonts\VI.svg" />
+    <Content Include="Contents\fonts\VN.svg" />
+    <Content Include="Contents\fonts\VU.svg" />
+    <Content Include="Contents\fonts\WF.svg" />
+    <Content Include="Contents\fonts\WS.svg" />
+    <Content Include="Contents\fonts\XK.svg" />
+    <Content Include="Contents\fonts\YE.svg" />
+    <Content Include="Contents\fonts\YT.svg" />
+    <Content Include="Contents\fonts\ZA.svg" />
+    <Content Include="Contents\fonts\ZM.svg" />
+    <Content Include="Contents\fonts\ZW.svg" />
+    <Content Include="Contents\images\images.png" />
+    <Content Include="Contents\images\ajax-loader.gif" />
+    <Content Include="Contents\images\dropdown-header\abstract3.jpg" />
+    <Content Include="Contents\images\icons-rtl.gif" />
+    <Content Include="Contents\images\icons.gif" />
+    <Content Include="Contents\images\loading.gif" />
+    <Content Include="Contents\images\logo-inverse.png" />
+    <Content Include="Contents\images\vline-rtl.gif" />
+    <Content Include="Contents\images\vline.gif" />
+    <Content Include="Contents\Styles\ClientsStyle.css" />
+    <Content Include="Contents\Styles\contact_responsive.css" />
+    <Content Include="Contents\Styles\contact_styles.css" />
+    <Content Include="Contents\Styles\HomeStyle.css" />
+    <Content Include="Contents\Styles\jquery-ui\jquery-ui.css" />
+    <Content Include="Contents\Styles\jquery-ui\jquery-ui.js" />
+    <Content Include="Contents\Styles\main.d810cf0ae7f39f28f336.css" />
+    <Content Include="Contents\Styles\OwlCarousel2-2.2.1\ajax-loader.gif" />
+    <Content Include="Contents\Styles\OwlCarousel2-2.2.1\animate.css" />
+    <Content Include="Contents\Styles\OwlCarousel2-2.2.1\owl.carousel.css" />
+    <Content Include="Contents\Styles\OwlCarousel2-2.2.1\owl.carousel.js" />
+    <Content Include="Contents\Styles\OwlCarousel2-2.2.1\owl.theme.default.css" />
+    <Content Include="Contents\Styles\OwlCarousel2-2.2.1\owl.video.play.png" />
+    <Content Include="Contents\Styles\product_responsive.css" />
+    <Content Include="Contents\Styles\product_styles.css" />
+    <Content Include="Contents\Styles\responsive.css" />
+    <Content Include="Contents\Styles\shop_responsive.css" />
+    <Content Include="Contents\Styles\shop_styles.css" />
+    <Content Include="Contents\Styles\slick-1.8.0\ajax-loader.gif" />
+    <Content Include="Contents\Styles\slick-1.8.0\fonts\slick.svg" />
+    <Content Include="Contents\Styles\slick-1.8.0\index.html" />
+    <Content Include="Contents\Styles\slick-1.8.0\slick.css" />
+    <Content Include="Contents\Styles\slick-1.8.0\slick.js" />
+    <Content Include="Content\PagedList.css" />
+    <Content Include="Global.asax" />
+    <Content Include="images\adv_1.png" />
+    <Content Include="images\adv_2.png" />
+    <Content Include="images\adv_3.png" />
+    <Content Include="images\banner_2_background.jpg" />
+    <Content Include="images\banner_2_product.png" />
+    <Content Include="images\banner_background.jpg" />
+    <Content Include="images\banner_product.png" />
+    <Content Include="images\best_1.png" />
+    <Content Include="images\best_2.png" />
+    <Content Include="images\best_3.png" />
+    <Content Include="images\best_4.png" />
+    <Content Include="images\best_5.png" />
+    <Content Include="images\best_6.png" />
+    <Content Include="images\blog_1.jpg" />
+    <Content Include="images\blog_2.jpg" />
+    <Content Include="images\blog_3.jpg" />
+    <Content Include="images\blog_4.jpg" />
+    <Content Include="images\blog_5.jpg" />
+    <Content Include="images\blog_6.jpg" />
+    <Content Include="images\blog_7.jpg" />
+    <Content Include="images\blog_8.jpg" />
+    <Content Include="images\blog_9.jpg" />
+    <Content Include="images\blog_single_background.jpg" />
+    <Content Include="images\brands_1.jpg" />
+    <Content Include="images\brands_2.jpg" />
+    <Content Include="images\brands_3.jpg" />
+    <Content Include="images\brands_4.jpg" />
+    <Content Include="images\brands_5.jpg" />
+    <Content Include="images\brands_6.jpg" />
+    <Content Include="images\brands_7.jpg" />
+    <Content Include="images\brands_8.jpg" />
+    <Content Include="images\cart.png" />
+    <Content Include="images\char_1.png" />
+    <Content Include="images\char_2.png" />
+    <Content Include="images\char_3.png" />
+    <Content Include="images\char_4.png" />
+    <Content Include="images\contact_1.png" />
+    <Content Include="images\contact_2.png" />
+    <Content Include="images\contact_3.png" />
+    <Content Include="images\deals.png" />
+    <Content Include="images\featured_1.png" />
+    <Content Include="images\featured_2.png" />
+    <Content Include="images\featured_3.png" />
+    <Content Include="images\featured_4.png" />
+    <Content Include="images\featured_5.png" />
+    <Content Include="images\featured_6.png" />
+    <Content Include="images\featured_7.png" />
+    <Content Include="images\featured_8.png" />
+    <Content Include="images\heart.png" />
+    <Content Include="images\logos_1.png" />
+    <Content Include="images\logos_2.png" />
+    <Content Include="images\logos_3.png" />
+    <Content Include="images\logos_4.png" />
+    <Content Include="images\mail.png" />
+    <Content Include="images\mail_white.png" />
+    <Content Include="images\marker.png" />
+    <Content Include="images\new_1.jpg" />
+    <Content Include="images\new_10.jpg" />
+    <Content Include="images\new_2.jpg" />
+    <Content Include="images\new_3.jpg" />
+    <Content Include="images\new_4.jpg" />
+    <Content Include="images\new_5.jpg" />
+    <Content Include="images\new_6.jpg" />
+    <Content Include="images\new_7.jpg" />
+    <Content Include="images\new_8.jpg" />
+    <Content Include="images\new_9.jpg" />
+    <Content Include="images\new_single.png" />
+    <Content Include="images\phone.png" />
+    <Content Include="images\phone_white.png" />
+    <Content Include="images\popular_1.png" />
+    <Content Include="images\popular_2.png" />
+    <Content Include="images\popular_3.png" />
+    <Content Include="images\popular_4.png" />
+    <Content Include="images\popular_5.png" />
+    <Content Include="images\quote.png" />
+    <Content Include="images\review_1.jpg" />
+    <Content Include="images\review_2.jpg" />
+    <Content Include="images\review_3.jpg" />
+    <Content Include="images\search.png" />
+    <Content Include="images\send.png" />
+    <Content Include="images\shopping_cart.jpg" />
+    <Content Include="images\shop_1.jpg" />
+    <Content Include="images\shop_2.jpg" />
+    <Content Include="images\shop_background.jpg" />
+    <Content Include="images\single_1.jpg" />
+    <Content Include="images\single_2.jpg" />
+    <Content Include="images\single_3.jpg" />
+    <Content Include="images\single_4.jpg" />
+    <Content Include="images\trends_1.jpg" />
+    <Content Include="images\trends_2.jpg" />
+    <Content Include="images\trends_3.jpg" />
+    <Content Include="images\trends_background.jpg" />
+    <Content Include="images\user.png" />
+    <Content Include="images\user.svg" />
+    <Content Include="images\view_1.jpg" />
+    <Content Include="images\view_2.jpg" />
+    <Content Include="images\view_3.jpg" />
+    <Content Include="images\view_4.jpg" />
+    <Content Include="images\view_5.jpg" />
+    <Content Include="images\view_6.jpg" />
+    <Content Include="Scripts\AddQuestion.js" />
+    <Content Include="Scripts\Ajax.jquery.min.js" />
+    <Content Include="Scripts\contact_custom.js" />
+    <Content Include="Scripts\custom.js" />
+    <Content Include="Scripts\easing\easing.js" />
+    <Content Include="Scripts\Editor.js" />
+    <Content Include="Scripts\Global.js" />
+    <Content Include="Scripts\greensock\animation.gsap.min.js" />
+    <Content Include="Scripts\greensock\ScrollToPlugin.min.js" />
+    <Content Include="Scripts\greensock\TimelineMax.min.js" />
+    <Content Include="Scripts\greensock\TweenMax.min.js" />
+    <Content Include="Scripts\HomeUtils.js" />
+    <Content Include="Scripts\Isotope\isotope.pkgd.min.js" />
+    <Content Include="Scripts\jquery-1.10.2.js" />
+    <Content Include="Scripts\jquery-1.7.2.min.js" />
+    <Content Include="Areas\Admin\Views\User\ManageMembers.cshtml" />
+    <Content Include="Areas\Admin\Views\Shared\_Nav.cshtml" />
+    <Content Include="Areas\Admin\Views\User\_TreeViewPermission.cshtml" />
+    <Content Include="Contents\Styles\slick-1.8.0\fonts\slick.eot" />
+    <Content Include="Contents\Styles\slick-1.8.0\fonts\slick.ttf" />
+    <Content Include="Contents\Styles\slick-1.8.0\fonts\slick.woff" />
+    <None Include="Properties\PublishProfiles\IISProfile.pubxml" />
+    <None Include="Scripts\jquery-1.8.0.intellisense.js" />
+    <Content Include="Scripts\jquery-1.8.0.js" />
+    <Content Include="Scripts\jquery-1.8.0.min.js" />
+    <Content Include="Scripts\jquery-1.9.1.min.js" />
+    <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
+    <Content Include="Scripts\jquery.unobtrusive-ajax.min.js" />
+    <Content Include="Scripts\JsLocalSearch.js" />
+    <Content Include="Scripts\jsTree3\.gitignore" />
+    <Content Include="Scripts\jsTree3\Custom.js" />
+    <Content Include="Scripts\jsTree3\demo\basic\index.html" />
+    <Content Include="Scripts\jsTree3\dist\jstree.js" />
+    <Content Include="Scripts\jsTree3\dist\jstree.min.js" />
+    <Content Include="Scripts\jsTree3\dist\themes\default-dark\32px.png" />
+    <Content Include="Scripts\jsTree3\dist\themes\default-dark\40px.png" />
+    <Content Include="Scripts\jsTree3\dist\themes\default-dark\style.css" />
+    <Content Include="Scripts\jsTree3\dist\themes\default-dark\style.min.css" />
+    <Content Include="Scripts\jsTree3\dist\themes\default-dark\throbber.gif" />
+    <Content Include="Scripts\jsTree3\dist\themes\default\32px.png" />
+    <Content Include="Scripts\jsTree3\dist\themes\default\40px.png" />
+    <Content Include="Scripts\jsTree3\dist\themes\default\jstree.bundle.css" />
+    <Content Include="Scripts\jsTree3\dist\themes\default\jstree.bundle.rtl.css" />
+    <Content Include="Scripts\jsTree3\dist\themes\default\style.css" />
+    <Content Include="Scripts\jsTree3\dist\themes\default\style.min.css" />
+    <Content Include="Scripts\jsTree3\dist\themes\default\throbber.gif" />
+    <Content Include="Scripts\jsTree3\gruntfile.js" />
+    <Content Include="Scripts\jsTree3\src\intro.js" />
+    <Content Include="Scripts\jsTree3\src\jstree.changed.js" />
+    <Content Include="Scripts\jsTree3\src\jstree.checkbox.js" />
+    <Content Include="Scripts\jsTree3\src\jstree.conditionalselect.js" />
+    <Content Include="Scripts\jsTree3\src\jstree.contextmenu.js" />
+    <Content Include="Scripts\jsTree3\src\jstree.dnd.js" />
+    <Content Include="Scripts\jsTree3\src\jstree.js" />
+    <Content Include="Scripts\jsTree3\src\jstree.massload.js" />
+    <Content Include="Scripts\jsTree3\src\jstree.search.js" />
+    <Content Include="Scripts\jsTree3\src\jstree.sort.js" />
+    <Content Include="Scripts\jsTree3\src\jstree.state.js" />
+    <Content Include="Scripts\jsTree3\src\jstree.types.js" />
+    <Content Include="Scripts\jsTree3\src\jstree.unique.js" />
+    <Content Include="Scripts\jsTree3\src\jstree.wholerow.js" />
+    <Content Include="Scripts\jsTree3\src\misc.js" />
+    <Content Include="Scripts\jsTree3\src\outro.js" />
+    <Content Include="Scripts\jsTree3\src\sample.js" />
+    <Content Include="Scripts\jsTree3\src\themes\default-dark\32px.png" />
+    <Content Include="Scripts\jsTree3\src\themes\default-dark\40px.png" />
+    <Content Include="Scripts\jsTree3\src\themes\default-dark\style.css" />
+    <Content Include="Scripts\jsTree3\src\themes\default-dark\throbber.gif" />
+    <Content Include="Scripts\jsTree3\src\themes\default\32px.png" />
+    <Content Include="Scripts\jsTree3\src\themes\default\40px.png" />
+    <Content Include="Scripts\jsTree3\src\themes\default\style.css" />
+    <Content Include="Scripts\jsTree3\src\themes\default\throbber.gif" />
+    <Content Include="Scripts\jsTree3\src\vakata-jstree.js" />
+    <Content Include="Scripts\jsTree3\test\unit\index.html" />
+    <Content Include="Scripts\jsTree3\test\unit\libs\qunit.css" />
+    <Content Include="Scripts\jsTree3\test\unit\libs\qunit.js" />
+    <Content Include="Scripts\jsTree3\test\unit\test.js" />
+    <Content Include="Scripts\jsTree3\test\visual\desktop\index.html" />
+    <Content Include="Scripts\jsTree3\test\visual\mobile\index.html" />
+    <Content Include="Scripts\jsTree3\test\visual\screenshots\desktop\.png" />
+    <Content Include="Scripts\jsTree3\test\visual\screenshots\desktop\desktop.png" />
+    <Content Include="Scripts\jsTree3\test\visual\screenshots\desktop\home.png" />
+    <Content Include="Scripts\jsTree3\test\visual\screenshots\mobile\.png" />
+    <Content Include="Scripts\jsTree3\test\visual\screenshots\mobile\home.png" />
+    <Content Include="Scripts\jsTree3\test\visual\screenshots\mobile\mobile.png" />
+    <Content Include="Scripts\main.d810cf0ae7f39f28f336.js" />
+    <Content Include="Scripts\moment.js" />
+    <Content Include="Scripts\parallax-js-master\parallax.min.js" />
+    <Content Include="Scripts\Previewer.js" />
+    <Content Include="Scripts\product_custom.js" />
+    <Content Include="Scripts\scrollmagic\ScrollMagic.min.js" />
+    <Content Include="Scripts\shop_custom.js" />
+    <Content Include="Scripts\SweetAlert.js" />
+    <Content Include="Scripts\Tinymc.js" />
+    <Content Include="Scripts\Validation.js" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="App_Start\BundleConfig.cs" />
+    <Compile Include="App_Start\CompressFilter.cs" />
+    <Compile Include="App_Start\ETagAttribute.cs" />
+    <Compile Include="App_Start\FilterConfig.cs" />
+    <Compile Include="App_Start\NoCacheConfig.cs" />
+    <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="App_Start\SearchBotFilter.cs" />
+    <Compile Include="App_Start\Startup.cs" />
+    <Compile Include="App_Start\URIHandler.cs" />
+    <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
+    <Compile Include="Areas\Admin\Components\Nav.cs" />
+    <Compile Include="Areas\Admin\Controllers\ApplicationSettingsController.cs" />
+    <Compile Include="Areas\Admin\Controllers\ArticleController.cs" />
+    <Compile Include="Areas\Admin\Controllers\AuthorController.cs" />
+    <Compile Include="Areas\Admin\Controllers\BookController.cs" />
+    <Compile Include="Areas\Admin\Controllers\DashboardController.cs" />
+    <Compile Include="Areas\Admin\Controllers\HomeController.cs" />
+    <Compile Include="Areas\Admin\Controllers\QuestionBankController.cs" />
+    <Compile Include="Areas\Admin\Controllers\UserController.cs" />
+    <Compile Include="Areas\Admin\Helpers\CustomDecrypt.cs" />
+    <Compile Include="Areas\Admin\Helpers\CustomEncrypt.cs" />
+    <Compile Include="Areas\Admin\Helpers\CustomSerializer.cs" />
+    <Compile Include="Areas\Admin\Helpers\HtmlConverter.cs" />
+    <Compile Include="Areas\Admin\Interfaces\IApplicationSettingsService.cs" />
+    <Compile Include="Areas\Admin\Interfaces\IArticleService.cs" />
+    <Compile Include="Areas\Admin\Interfaces\IAuthorService.cs" />
+    <Compile Include="Areas\Admin\Interfaces\IBookService.cs" />
+    <Compile Include="Areas\Admin\Interfaces\IQuestionBankService.cs" />
+    <Compile Include="Areas\Admin\Interfaces\IUserService.cs" />
+    <Compile Include="Areas\Admin\Services\ApplicationSettingsService.cs" />
+    <Compile Include="Areas\Admin\Services\ArticleService.cs" />
+    <Compile Include="Areas\Admin\Services\AuthorService.cs" />
+    <Compile Include="Areas\Admin\Services\BookService.cs" />
+    <Compile Include="Areas\Admin\Services\QuestionBankService.cs" />
+    <Compile Include="Areas\Admin\Services\UserService.cs" />
+    <Compile Include="Areas\Admin\ViewModels\AfflilateBonusVM.cs" />
+    <Compile Include="Areas\Admin\ViewModels\ApplicationSettingsVM.cs" />
+    <Compile Include="Areas\Admin\ViewModels\ArticleContentQuestionMappingVM.cs" />
+    <Compile Include="Areas\Admin\ViewModels\ArticleContentVM.cs" />
+    <Compile Include="Areas\Admin\ViewModels\ArticleVM.cs" />
+    <Compile Include="Areas\Admin\ViewModels\AuthorVM.cs" />
+    <Compile Include="Areas\Admin\ViewModels\BookVM.cs" />
+    <Compile Include="Areas\Admin\ViewModels\CategoriesVM.cs" />
+    <Compile Include="Areas\Admin\ViewModels\HomeModel.cs" />
+    <Compile Include="Areas\Admin\ViewModels\MemberCartVM.cs" />
+    <Compile Include="Areas\Admin\ViewModels\MemberVM.cs" />
+    <Compile Include="Areas\Admin\ViewModels\MemberWishListVM.cs" />
+    <Compile Include="Areas\Admin\ViewModels\QuestionBankVM.cs" />
+    <Compile Include="Areas\Admin\ViewModels\RolePermissionVM.cs" />
+    <Compile Include="Areas\Admin\ViewModels\RoleVM.cs" />
+    <Compile Include="Areas\Admin\ViewModels\TestAnswers.cs" />
+    <Compile Include="Areas\Admin\ViewModels\TestXPaperVM.cs" />
+    <Compile Include="Areas\Admin\ViewModels\UserVM.cs" />
+    <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\BookController.cs" />
+    <Compile Include="Controllers\CoursesController.cs" />
+    <Compile Include="Controllers\ErrorController.cs" />
+    <Compile Include="Controllers\HelpController.cs" />
+    <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\web.config" />
+    <Content Include="Areas\Admin\Views\web.config" />
+    <Content Include="Areas\Admin\Views\Shared\_AdminLayout.cshtml" />
+    <Content Include="Contents\fonts\fa-solid-900.eot" />
+    <Content Include="Contents\fonts\fa-solid-900.ttf" />
+    <Content Include="Contents\fonts\fa-solid-900.woff" />
+    <Content Include="Contents\fonts\fa-solid-900.woff2" />
+    <Content Include="Contents\fonts\fa-solid-900d41d.eot" />
+    <Content Include="Contents\fonts\ionicons.eot" />
+    <Content Include="Contents\fonts\ionicons.ttf" />
+    <Content Include="Contents\fonts\ionicons.woff" />
+    <Content Include="Contents\fonts\Pe-icon-7-stroke.eot" />
+    <Content Include="Contents\fonts\Pe-icon-7-stroke.ttf" />
+    <Content Include="Contents\fonts\Pe-icon-7-stroke.woff" />
+    <Content Include="Contents\fonts\Linearicons-Free.eot" />
+    <Content Include="Contents\fonts\Linearicons-Free.ttf" />
+    <Content Include="Contents\fonts\Linearicons-Free.woff" />
+    <Content Include="Contents\fonts\Linearicons-Free.woff2" />
+    <Content Include="Areas\Admin\Views\ApplicationSettings\Manage.cshtml" />
+    <Content Include="Areas\Admin\Views\User\Manage.cshtml" />
+    <Content Include="Areas\Admin\Views\User\_CreateUser.cshtml" />
+    <Content Include="Areas\Admin\Views\User\ManageRoles.cshtml" />
+    <Content Include="Areas\Admin\Views\User\_CreateRole.cshtml" />
+    <Content Include="Areas\Admin\Views\User\_EditRole.cshtml" />
+    <Content Include="Areas\Admin\Views\User\_EditUser.cshtml" />
+    <Content Include="Areas\Admin\Views\User\ManagePermissions.cshtml" />
+    <Content Include="Areas\Admin\Views\Home\Home.cshtml" />
+    <Content Include="Areas\Admin\Views\ApplicationSettings\ManageCategories.cshtml" />
+    <Content Include="Areas\Admin\Views\ApplicationSettings\_CreateCategory.cshtml" />
+    <Content Include="Areas\Admin\Views\ApplicationSettings\_EditCategory.cshtml" />
+    <Content Include="Areas\Admin\Views\ApplicationSettings\_CreateSubCategory.cshtml" />
+    <Content Include="Areas\Admin\Views\ApplicationSettings\_EditSubCategory.cshtml" />
+    <Content Include="Areas\Admin\Views\Article\ManageArticles.cshtml" />
+    <Content Include="Areas\Admin\Views\Article\_CreateArticle.cshtml" />
+    <Content Include="Areas\Admin\Views\Article\_EditArticle.cshtml" />
+    <Content Include="Areas\Admin\Views\Article\ManageArticleContents.cshtml" />
+    <Content Include="Areas\Admin\Views\Article\CreateArticleContent.cshtml" />
+    <Content Include="Areas\Admin\Views\Article\EditArticleContent.cshtml" />
+    <Content Include="Areas\Admin\Views\Book\Manage.cshtml" />
+    <Content Include="Areas\Admin\Views\Book\AddBook.cshtml" />
+    <Content Include="Areas\Admin\Views\Book\EditBook.cshtml" />
+    <Content Include="Areas\Admin\Views\Book\_SearchBook.cshtml" />
+    <Content Include="Areas\Admin\Views\Author\Manage.cshtml" />
+    <Content Include="Areas\Admin\Views\Author\_EditAuthor.cshtml" />
+    <Content Include="Areas\Admin\Views\Author\_AddAuthor.cshtml" />
+    <Content Include="Areas\Admin\Views\Dashboard\Analytics.cshtml" />
+    <Content Include="Areas\Admin\Views\User\ManageAfflilates.cshtml" />
+    <Content Include="Areas\Admin\Views\User\_BookBonusSummary.cshtml" />
+    <Content Include="Areas\Admin\Views\User\_AuthorBonusSummary.cshtml" />
+    <Content Include="Areas\Admin\Views\User\_ArticleBonusSummary.cshtml" />
+    <Content Include="Areas\Admin\Views\QuestionBank\ManageQuestion.cshtml" />
+    <Content Include="Areas\Admin\Views\QuestionBank\AddQuestion.cshtml" />
+    <Content Include="Areas\Admin\Views\QuestionBank\EditQuestion.cshtml" />
+    <Content Include="Areas\Admin\Views\QuestionBank\ManageArticleContentQuestions.cshtml" />
+    <Content Include="Areas\Admin\Views\Shared\_NotificationAlert.cshtml" />
+    <Content Include="Areas\Admin\Views\Article\_Search.cshtml" />
+    <None Include="packages.config" />
+    <Content Include="Views\Book\BookStore.cshtml" />
+    <Content Include="Views\Account\Login.cshtml" />
+    <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Views\Home\_Books.cshtml" />
+    <Content Include="Views\Home\_FeaturedArticles.cshtml" />
+    <Content Include="Views\Home\_Search.cshtml" />
+    <Content Include="Views\Home\Search.cshtml" />
+    <Content Include="Views\Home\_Loader.cshtml" />
+    <Content Include="Views\Home\SubCategory.cshtml" />
+    <Content Include="Views\Book\ViewBook.cshtml" />
+    <Content Include="Views\Book\_SingleBookLoader.cshtml" />
+    <Content Include="Views\Courses\Courses.cshtml" />
+    <Content Include="Views\Account\Register.cshtml" />
+    <Content Include="Views\_ViewStart.cshtml" />
+    <Content Include="Views\Courses\CourseContentHeader.cshtml" />
+    <Content Include="Views\Courses\Read.cshtml" />
+    <Content Include="Scripts\jsTree3\.github\FUNDING.yml" />
+    <Content Include="Scripts\jsTree3\.github\workflows\npm-publish.yml" />
+    <Content Include="Scripts\jsTree3\bower.json" />
+    <Content Include="Scripts\jsTree3\component.json" />
+    <Content Include="Scripts\jsTree3\composer.json" />
+    <Content Include="Scripts\jsTree3\demo\basic\root.json" />
+    <Content Include="Scripts\jsTree3\demo\README.md" />
+    <Content Include="Scripts\jsTree3\jstree.jquery.json" />
+    <Content Include="Scripts\jsTree3\LICENSE-MIT" />
+    <Content Include="Scripts\jsTree3\package.json" />
+    <Content Include="Scripts\jsTree3\README.md" />
+    <Content Include="Scripts\jsTree3\src\themes\base.less" />
+    <Content Include="Scripts\jsTree3\src\themes\default-dark\style.less" />
+    <Content Include="Scripts\jsTree3\src\themes\default\style.less" />
+    <Content Include="Scripts\jsTree3\src\themes\main.less" />
+    <Content Include="Scripts\jsTree3\src\themes\mixins.less" />
+    <Content Include="Scripts\jsTree3\src\themes\responsive.less" />
+    <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Book\_BookStore.cshtml" />
+    <Content Include="Views\Help\ContactUs.cshtml" />
+    <Content Include="Views\Error\Error.cshtml" />
+    <Content Include="Views\Home\_FeaturedBooks.cshtml" />
+    <None Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+    <None Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="App_Data\" />
+    <Folder Include="Areas\Admin\Models\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\eLibrary.DAL\eLibrary.DAL.csproj">
+      <Project>{95b05341-e4af-48de-872d-c1c80b700a6f}</Project>
+      <Name>eLibrary.DAL</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>True</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>15684</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>https://localhost:44370/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.0\build\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.0\build\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props'))" />
+    <Error Condition="!Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\EntityFramework.6.4.4\build\EntityFramework.props'))" />
+    <Error Condition="!Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\EntityFramework.6.4.4\build\EntityFramework.targets'))" />
+  </Target>
+  <Import Project="..\packages\EntityFramework.6.4.4\build\EntityFramework.targets" Condition="Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.targets')" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

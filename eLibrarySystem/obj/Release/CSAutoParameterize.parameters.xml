@@ -1,0 +1,6 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<parameters>
+  <parameter name="eLibraryDatabaseEntities-Web.config Connection String" description="eLibraryDatabaseEntities Connection String used in web.config by the application to access the database." defaultValue="Data Source=Legendary;Initial Catalog=LibraryDB;Integrated Security=True;" tags="SqlConnectionString">
+    <parameterEntry kind="XmlFile" scope="C:\\Users\\kc\\Documents\\WEB\ PROJECTS\\eLibrarySystem\\eLibrarySystem\\obj\\Release\\Package\\PackageTmp\\Web\.config$" match="/configuration/connectionStrings/add[@name='eLibraryDatabaseEntities']/@connectionString" />
+  </parameter>
+</parameters>

@@ -1,0 +1,224 @@
+﻿@using System.Web.Optimization;
+@model IEnumerable<eLibrarySystem.Areas.Admin.ViewModels.AfflilateBonusVM>
+@{
+    ViewBag.Title = "Manage Afflilates";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="app-main__inner">
+    @Html.Partial("_NotificationAlert")
+    <div class="app-page-title">
+        <div class="page-title-wrapper">
+            <div class="page-title-heading">
+                <div class="page-title-icon">
+                    <i class="pe-7s-settings icon-gradient bg-tempting-azure"></i>
+                </div>
+                <div>
+                    Afflilates
+                    <div class="page-title-subheading">Manage all affiliate bonus here.</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="position-relative form-group">
+                <label for="Publisher">Filter</label>
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <div class="input-group-text">
+                            <i class="fa fa-filter"></i>
+                        </div>
+                    </div>
+                    <input type="text" class="form-control" id="gsearchsimple" />
+                </div>
+            </div>
+        </div>
+        <div class="col-md-12"><div class="divider"></div></div>
+        @foreach (var afflilate in Model)
+        {
+            <div class="col-md-12 col-lg-6 col-xl-4 contsearch">
+                <div class="card-shadow-primary profile-responsive card-border mb-3 card">
+                    <div class="dropdown-menu-header">
+                        <div class="dropdown-menu-header-inner bg-focus">
+                            <div class="menu-header-image opacity-3"
+                                 style="background-image: url('/Contents/images/dropdown-header/city4.jpg');"></div>
+                            <div class="menu-header-content btn-pane-right">
+                                <div class="avatar-icon-wrapper mr-2 avatar-icon-xl">
+                                    <div class="avatar-icon rounded">
+                                        <img src="~/Contents/images/user.png" alt="Avatar 5">
+                                    </div>
+                                </div>
+                                <div class="">
+                                    <h5 class="menu-header-title gsearch">@afflilate.AfflilateUser</h5>
+                                    <h6 class="menu-header-subtitle gsearch">@afflilate.afflilateEmail</h6>
+                                </div>
+                                <div class="menu-header-btn-pane">
+                                    <a class="ladda-button btn btn-pill btn-dark" data-style="slide-right" href="#">
+                                        <span class="ladda-label">View profile</span>
+                                        <span class="ladda-spinner"></span>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <ul class="list-group list-group-flush">
+                        <li class="bg-warm-flame list-group-item">
+                            <div class="widget-content p-0">
+                                <div class="widget-content-wrapper">
+                                    <div class="widget-content-outer">
+                                        <h4 class="widget-heading text-dark opacity-7 text-center">Total Bonus</h4>
+                                        <h5 class="text-center">₦@afflilate.TotalAmountString</h5>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="p-0 list-group-item">
+                            <div class="grid-menu grid-menu-2col">
+                                <div class="no-gutters row">
+                                    @foreach (var bonus in afflilate.Bonus)
+                                    {
+                                        string url = bonus.BonusType + "BonusSummary";
+                                        string target = bonus.BonusType + "target";
+                                        string loader = bonus.BonusType + "loader";
+                                        <div class="col-sm-4">
+                                            <button type="button" class=" btn-icon-vertical btn-square btn-transition btn btn-outline-link" data-toggle="modal"
+                                                    data-target="#@url">
+                                                <i class="fa fa-money-bill-alt btn-icon-wrapper btn-icon-lg mb-3"> </i>
+                                                <h4 class="text-capitalize text-center">@bonus.BonusType</h4>
+                                                <h6>₦@bonus.AmountString</h6>
+                                                @Ajax.ActionLink("summary", url, new { afflilateID = afflilate.AfflilateUserID }, new AjaxOptions
+                                                {
+                                                    InsertionMode = InsertionMode.Replace,
+                                                    UpdateTargetId = target,
+                                                    LoadingElementId = loader,
+                                                    HttpMethod = "Post"
+                                                })
+                                            </button>
+                                        </div>
+                                    }
+                                    <div id="localSearchSimple"></div>
+                                </div>
+                                <div class="text-center d-block card-footer">
+                                    <button class="btn-shadow-primary btn btn-primary btn-lg btn-block">Pay off</button>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+@Html.Partial("_BookBonusSummary")
+@Html.Partial("_AuthorBonusSummary")
+@Html.Partial("_ArticleBonusSummary")
+@section Scripts{
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/jquery-unobtrusive-ajax")
+    @Scripts.Render("~/bundles/localsearch")
+    @Scripts.Render("~/bundles/afflilate")
+}
+@section Modals{
+    <!-- Book bonus summary-->
+    <div class="modal fade" id="BookBonusSummary" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Book Bonus Summary</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <table style="width: 100%;" class="table table-hover table-striped table-bordered">
+                        <thead>
+                            <tr>
+                                <th>Title</th>
+                                <th>Author</th>
+                                <th>Category</th>
+                                <th>Edition</th>
+                                <th>Date Created</th>
+                            </tr>
+                        </thead>
+                        <tbody id="Booktarget">
+                            <tr id="Bookloader">
+                                <td class="text-center" colspan="5"><i class="fa fa-spinner fa-spin"></i></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary btn-shadow btn-block" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Author bonus summary-->
+    <div class="modal fade" id="AuthorBonusSummary" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Author Bonus Summary</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <table style="width: 100%;" class="table table-hover table-striped table-bordered">
+                        <thead>
+                            <tr>
+                                <th>Photo</th>
+                                <th>Name</th>
+                                <th>Date Created</th>
+                            </tr>
+                        </thead>
+                        <tbody id="Authortarget">
+                            <tr id="Authorloader">
+                                <td class="text-center" colspan="3"><i class="fa fa-spinner fa-spin"></i></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary btn-shadow btn-block" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Article bonus summary-->
+    <div class="modal fade" id="ArticleBonusSummary" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Article Bonus Summary</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <table style="width: 100%;" class="table table-hover table-striped table-bordered">
+                        <thead>
+                            <tr>
+                                <th>Image</th>
+                                <th>Title</th>
+                                <th>Date Created</th>
+                            </tr>
+                        </thead>
+                        <tbody id="Articletarget">
+                            <tr id="Articleloader">
+                                <td class="text-center" colspan="3"><i class="fa fa-spinner fa-spin"></i></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary btn-shadow btn-block" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+}

@@ -1,0 +1,57 @@
+﻿@model eLibrarySystem.Areas.Admin.ViewModels.BookVM
+@{
+    string FrontCoverBase64 = Convert.ToBase64String(Model.FrontCover);
+    string FrontCoverSrc = string.Format("data:image/gif;base64,{0}", FrontCoverBase64);
+    string BackCoverBase64 = Convert.ToBase64String(Model.BackCover);
+    string BackCoverSrc = string.Format("data:image/gif;base64,{0}", BackCoverBase64);
+}
+
+<div class="row">
+    <div class="col-md-4">
+        <div class="main-card mb-2 card">
+            <div class="card-body">
+                <div class="slick-slider">
+                    <div style="height:300px; width: 100%;">
+                        <img src="@FrontCoverSrc" class="slider-item img-thumbnail" style="height:400px; width: 100%;" />
+                    </div>
+                    <div>
+                        <img src="@BackCoverSrc" class="slder-item img-thumbnail" style="height:400px; width: 100%;" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-8">
+        <div class="main-card mb-3 card">
+            <div class="card-header">
+                <h2 class="card-title">@Model.Name</h2><small>
+                <br />&nbsp; by @Model.Author</small>
+                <div class="btn-actions-pane-right">
+                    <div role="group" class="btn-group-sm nav btn-group">
+                        <a data-toggle="tab" href="#tab-eg1-0" class="btn-shadow active btn btn-primary">OVERVIEW</a>
+                        <a data-toggle="tab" href="#tab-eg1-1" class="btn-shadow  btn btn-primary">OTHERS</a>
+                    </div>
+                </div>
+            </div>
+            <div class="scroll-area-lg">
+                <div class="scrollbar-container">
+                    <div class="col-md-12">
+                        <div class="tab-content">
+                            <div class="tab-pane active" id="tab-eg1-0" role="tabpanel">
+                                <div class="product_description">
+                                    <div class="product_text"><p>@Html.Raw(Model.Description)</p></div>
+                                </div>
+                            </div><div class="tab-pane" id="tab-eg1-1" role="tabpanel">
+    <div class="book_fav pull-right" data-toggle="tooltip-light"
+         data-placement="top" title="Add to favorite"><i class="fas fa-heart"></i></div>
+</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Description -->
+
+

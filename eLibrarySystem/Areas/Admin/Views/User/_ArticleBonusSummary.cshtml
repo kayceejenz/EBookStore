@@ -1,0 +1,21 @@
+﻿@{
+    if (ViewBag.ArticleBounsSummary.Count > 0 )
+    {
+        foreach (var item in ViewBag.ArticleBounsSummary)
+        {
+            string ImageBase64 = Convert.ToBase64String(item.Image);
+            string ImageSrc = string.Format("data:image/gif;base64,{0}", ImageBase64);
+            <tr>
+                <td><img src="@ImageSrc" style="width:50px; height:50px;" class="img-responsive img-thumbnail" onchange="ShowPreview(this)" onerror="this.src='/Contents/images/images.png'" /></td>
+                <td>@item.Description</td>
+                <td>@item.DateCreated.ToShortDateString() at @item.DateCreated.ToString("hh:mm tt")</td>
+            </tr>
+        }
+    }
+    @*else
+    {
+        <tr>
+            <td colspan="3" class="text-center">No article to show</td>
+        </tr>
+    }*@
+}

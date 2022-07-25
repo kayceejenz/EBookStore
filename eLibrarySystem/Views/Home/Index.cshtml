@@ -1,0 +1,112 @@
+﻿@using System.Web.Optimization;
+@model eLibrarySystem.Areas.Admin.ViewModels.HomeModel
+@{
+    ViewBag.Title = "Book Store";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@Styles.Render("~/Content/homestyle")
+
+@Styles.Render("~/Content/owl-carousel")
+@Styles.Render("~/Content/owl-theme")
+@Styles.Render("~/Content/animate")
+@Styles.Render("~/Content/slick")
+@Styles.Render("~/Content/responsive")
+@Styles.Render("~/Content/clientStyle")
+
+
+<div class="super_container">
+
+    <!-- Header -->
+
+    <header class="header">
+
+        <!-- Header -->
+        <!-- Header Main -->
+
+        <div class="header_main">
+            <div class="container">
+                <div class="row">
+                    <!-- Search -->
+                    <div class="col-lg-12 col-12 order-lg-2 order-3 text-lg-left text-right">
+                        <div class="header_search">
+                            <div class="header_search_content">
+                                <div class="header_search_form_container">
+                                    <form action="#" class="header_search_form clearfix">
+                                        <input type="search" required="required" class="header_search_input" placeholder="Search for book...">
+                                        <div class="custom_dropdown">
+                                            <div class="custom_dropdown_list">
+                                                <span class="custom_dropdown_placeholder clc">All Categories</span>
+                                                <i class="fas fa-chevron-down"></i>
+                                                <ul class="custom_list clc">
+                                                    <li><a class="clc" href="#">All Categories</a></li>
+                                                    @{
+                                                        if (Model.CategoryNav != null)
+                                                        {
+                                                            foreach (var category in Model.CategoryNav.Where(x => x.ParentID == null))
+                                                            {
+                                                                <li><a class="clc" href="#">@category.Description</a></li>
+                                                            }
+                                                        }
+                                                    }
+                                                </ul>
+                                            </div>
+                                        </div>
+                                        <button type="submit" class="header_search_button trans_300 btn-hover-shine  btn-shadow" value="Submit"><img src="~/images/search.png" alt=""></button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+    </header>
+
+    <!-- Banner -->
+    <div class="slick-slider">
+        <div class="banner slider-item" style="height:400px">
+            <div class="banner_background" style="background-image:url(/images/banner_background.jpg)"></div>
+            <div class="container fill_height">
+                <div class="row fill_height">
+                    <div class="banner_product_image"><img src="~/images/book-400x400.png" alt=""></div>
+                    <div class="col-lg-5 offset-lg-4 fill_height">
+                        <div class="banner_content">
+                            <h1 class="banner_text">Epic Historical Book of Knowlegde</h1>
+                            <div class="banner_product_name">by Precious Kosisochukwu</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="banner slider-item" style="height:400px">
+            <div class="banner_background" style="background-image:url(/images/banner_2_background.jpg)"></div>
+            <div class="container fill_height">
+                <div class="row fill_height">
+                    <div class="banner_product_image"><img src="~/images/book-400x400.png" alt=""></div>
+                    <div class="col-lg-5 offset-lg-4 fill_height">
+                        <div class="banner_content">
+                            <h1 class="banner_text">Revolution Book of Knowlegde</h1>
+                            <div class="banner_product_name">by Precious Kosisochukwu</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    @Html.Partial("_Books")
+
+    <!-- Best Sellers -->
+
+    @Html.Partial("_FeaturedBooks")
+
+
+
+</div>
+@section Scripts{
+
+    @Scripts.Render("~/bundles/custom")
+} 

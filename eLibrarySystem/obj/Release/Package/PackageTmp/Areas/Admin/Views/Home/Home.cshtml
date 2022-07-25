@@ -1,0 +1,26 @@
+﻿@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="app-main__inner">
+    <div class="app-page-title">
+        <div class="page-title-wrapper">
+            <div class="page-title-heading">
+                <div class="page-title-icon">
+                    <i class="pe-7s-dashboard icon-gradient bg-tempting-azure"></i>
+                </div>
+                <div>
+                    Dashboard
+                    <div class="page-title-subheading">Manage all users in the system here.</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="mbg-3 alert alert-info alert-dismissible fade show" role="alert">
+        <span class="pr-2">
+            <i class="fa fa-question-circle"></i>
+        </span>
+        Welcome! @Session["Name"].ToString()
+    </div>
+</div>

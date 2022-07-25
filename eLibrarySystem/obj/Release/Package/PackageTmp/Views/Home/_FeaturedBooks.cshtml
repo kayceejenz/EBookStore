@@ -1,0 +1,37 @@
+﻿@model eLibrarySystem.Areas.Admin.ViewModels.HomeModel
+<style>
+    .book-image{
+        position: relative
+    }
+    .book-image> img{
+        width: 100%;
+        height: 300px;
+        display:block;
+        text-align:center
+    }
+</style>
+@{
+    if (Model.FeaturedBooks != null)
+    {
+            foreach (var featuredbook in Model.FeaturedBooks)
+            {
+                string FrontCoverBase64 = Convert.ToBase64String(featuredbook.FrontCover);
+                string FrontCoverSrc = string.Format("data:image/gif;base64,{0}", FrontCoverBase64);
+                string BackCoverBase64 = Convert.ToBase64String(featuredbook.BackCover);
+                string BackCoverSrc = string.Format("data:image/gif;base64,{0}", BackCoverBase64);
+                <div class="col-md-3">
+                    <div class="main-card mb-2 card">
+                        <div class="card-body">
+                            <h4 class="card-title">@featuredbook.Name</h4><small> - @featuredbook.Author</small>
+                            <div class="product_fav pull-right" id="@featuredbook.Id"><i class="fas fa-heart"></i></div>
+                            <div class="divider"></div>
+                            <div class="book-image">
+                                <img src="@FrontCoverSrc" class="img-thumbnail"/>
+                            </div><br />
+                            <a class="btn-hover-shine btn btn-shadow btn-primary btn-block" href="@Url.Action("ViewBook","Book",new { id=featuredbook.Id})">more info</a>
+                        </div>
+                    </div>
+                </div>
+            }
+    }
+}

@@ -1,0 +1,93 @@
+﻿@model eLibrarySystem.Areas.Admin.ViewModels.ArticleVM
+<div class="modal fade" id="Create" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Create article</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            @using (Html.BeginForm("CreateArticle", "Article", FormMethod.Post, new { area = "Admin", @class = "validate", novalidate = true, enctype = "multipart/form-data" }))
+            {
+                @Html.AntiForgeryToken()
+                <div class="modal-body">
+                    <div class="position-relative form-group">
+                        <label for="SubCategoryID" class="col-form-label">Sub category</label><span class="text-danger">*</span>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <div class="input-group-text">
+                                    <i class="ion-android-create"></i>
+                                </div>
+                            </div>
+                            @Html.DropDownListFor(model => model.SubCategoryID, (IEnumerable<SelectListItem>)ViewBag.SubCategories, "-- Select sub category --", new { @class = "form-control", required = true })
+                            <div class="valid-feedback">
+                                Nice!
+                            </div>
+                            <div class="invalid-feedback">
+                                Sub category required
+                            </div>
+                        </div>
+                        <label for="Description" class="col-form-label">Description</label><span class="text-danger">*</span>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <div class="input-group-text">
+                                    <i class="ion-android-create"></i>
+                                </div>
+                            </div>
+                            @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control", placeholder = "Enter description", required = true } })
+                            <div class="valid-feedback">
+                                Nice!
+                            </div>
+                            <div class="invalid-feedback">
+                                Description required
+                            </div>
+                        </div>
+                        <div class="position-relative form-group">
+                            <label for="LogoInp" class="col-form-label">Image</label><span class="text-danger">*</span>
+                            <small class="form-text text-muted">Image proportion should not pass 540px x 360px</small>
+                            <img class="img-responsive img-thumbnail" id="Image" src="#" onchange="ShowPreview(this)" onerror="this.src='/Contents/images/images.png'" alt="Logo" />
+                            <div class="custom-file">
+                                <input type="file" class="custom-file-input" id="ImageInp" name="ImageData" onchange="readImageURL(this)" />
+                                <label class="custom-file-label" for="customFile">Select file</label>
+                            </div>
+                        </div>
+                        <label for="Overview" class="col-form-label">Overview</label><span class="text-danger">*</span>
+                        <div class="input-group">
+                            @Html.TextAreaFor(model => model.Overview,0,4, new { style="width:100%",@class = "form-control", placeholder = "Enter overview", required = true  })
+                            <div class="valid-feedback">
+                                Nice!
+                            </div>
+                            <div class="invalid-feedback">
+                                Overview required
+                            </div>
+                        </div>
+
+                        <table style="width: 100%;" class="table table-hover table-striped">
+                            <tbody>
+                                <tr class="">
+                                    <td>Is Featured?</td>
+                                    <td style="width:60px">
+                                        @Html.CheckBoxFor(model => model.IsFeatured, new { data_toggle = "toggle", data_size = "normal", data_on = "Yes", data_off = "No", data_onstyle = "success", data_offstyle = "danger", id = "IsFeatured" })
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="submit" class="ladda-button btn btn-shadow btn-primary" data-style="zoom-in">
+                        <span class="ladda-label">Create</span>
+                        <span class="ladda-spinner"></span>
+                    </button>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+
+

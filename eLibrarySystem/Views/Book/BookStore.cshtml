@@ -1,0 +1,113 @@
+﻿@using System.Web.Optimization;
+@using PagedList;
+@using PagedList.Mvc;
+@using eLibrary.DAL.Entity
+@model eLibrarySystem.Areas.Admin.ViewModels.HomeModel
+@{
+    ViewBag.Title = "Book Store";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@Styles.Render("~/Content/homestyle")
+
+@Styles.Render("~/Content/owl-carousel")
+@Styles.Render("~/Content/owl-theme")
+@Styles.Render("~/Content/animate")
+@Styles.Render("~/Content/jquery-ui")
+@Styles.Render("~/Content/bookstore-responive")
+@Styles.Render("~/Content/bookstore")
+
+
+
+<div class="super_container">
+
+    <!-- Header -->
+    <!-- Home -->
+
+    <div class="home">
+        <div class="home_background parallax-window" data-parallax="scroll" data-image-src="~/images/shop_background.jpg"></div>
+        <div class="home_overlay"></div>
+        <div class="home_content d-flex flex-column align-items-center justify-content-center">
+            <h2 class="home_title">BOOK STORE COLLECTIONS</h2>
+        </div>
+    </div>
+
+    <!-- Shop -->
+
+    <div class="shop">
+        <div class="container">
+            <div class="row m-3">
+                <div class="col-lg-3">
+
+                    <!-- Shop Sidebar -->
+                    <div class="shop_sidebar">
+                        <div class="sidebar_section">
+                            <div class="sidebar_title">Categories</div>
+
+                            <div class="dropdown-menu nav p-0 dropdown-menu-inline dropdown-menu-rounded dropdown-menu-hover-primary">
+                                @{
+                                    if (Model.CategoryNav != null)
+                                    {
+                                        foreach (var category in Model.CategoryNav.Where(x => x.ParentID == null))
+                                        {
+                                            if (Global.CategoryID == category.Id)
+                                            {
+                                                <a href="@Url.Action("BookStore","Book",new { categoryID = category.Id })" class="mb-1 active dropdown-item">@category.Description</a>
+                                            }
+                                            else
+                                            {
+                                                <a href="@Url.Action("BookStore","Book",new { categoryID = category.Id })" class="mb-1 dropdown-item">@category.Description</a>
+                                            }
+                                        }
+                                    }
+                                }
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="col-lg-9">
+
+                    <!-- Shop Content -->
+
+                    <div class="shop_content">
+                        <div class="shop_bar clearfix">
+                            <div class="shop_product_count"><span>@Model.BookCollections.Count()</span> books found</div>
+                            <div class="shop_sorting">
+                                <span>Sort by:</span>
+                                <ul>
+                                    <li>
+                                        <span class="sorting_text">highest rated<i class="fas fa-chevron-down"></span></i>
+                                        <ul>
+                                            <li class="shop_sorting_button" data-isotope-option='{ "sortBy": "original-order" }'>highest rated</li>
+                                            <li class="shop_sorting_button" data-isotope-option='{ "sortBy": "name" }'>name</li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        @Html.Partial("_BookStore")
+                        <!-- Shop Page Navigation -->
+
+                        <div class="shop_page_nav d-flex flex-row pagination-rounded">
+                            <ul class="page_nav d-flex flex-column align-items-center justify-content-center">
+                                @Html.PagedListPager((IPagedList)Model.BookCollections, page => Url.Action("BookStore", new { page,categoryID =  Global.CategoryID }))
+                            </ul>
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+@section MinScripts{
+    @Scripts.Render("~/bundles/isotope")
+    @Scripts.Render("~/bundles/parallex")
+}
+@section Scripts{
+    @Scripts.Render("~/bundles/bookstore-custom")
+} 

@@ -1,0 +1,136 @@
+﻿
+@{
+    ViewBag.Title = "Analytics";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+<div class="app-main__inner">
+    <div class="app-page-title">
+        <div class="page-title-wrapper">
+            <div class="page-title-heading">
+                <div class="page-title-icon">
+                    <i class="pe-7s-dashboard icon-gradient bg-tempting-azure"></i>
+                </div>
+                <div>
+                    Analytics
+                    <div class="page-title-subheading">Manage all users in the system here.</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="card no-shadow bg-transparent no-border rm-borders mb-3">
+        <div class="card">
+            <div class="no-gutters row">
+                <div class="col-md-12 col-lg-4">
+                    <ul class="list-group list-group-flush">
+                        <li class="bg-transparent list-group-item">
+                            <div class="widget-content p-0">
+                                <div class="widget-content-outer">
+                                    <div class="widget-content-wrapper">
+                                        <div class="widget-content-left">
+                                            <div class="widget-heading">Books</div>
+                                            <div class="widget-subheading">Total books</div>
+                                        </div>
+                                        <div class="widget-content-right">
+                                            <div class="widget-numbers text-success">@ViewBag.Books</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="bg-transparent list-group-item">
+                            <div class="widget-content p-0">
+                                <div class="widget-content-outer">
+                                    <div class="widget-content-wrapper">
+                                        <div class="widget-content-left">
+                                            <div class="widget-heading">Courses</div>
+                                            <div class="widget-subheading">Total courses</div>
+                                        </div>
+                                        <div class="widget-content-right">
+                                            <div class="widget-numbers text-primary">@ViewBag.Articles</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                <div class="col-md-12 col-lg-4">
+                    <ul class="list-group list-group-flush">
+                        <li class="bg-transparent list-group-item">
+                            <div class="widget-content p-0">
+                                <div class="widget-content-outer">
+                                    <div class="widget-content-wrapper">
+                                        <div class="widget-content-left">
+                                            <div class="widget-heading">Authors</div>
+                                            <div class="widget-subheading">Verified authors</div>
+                                        </div>
+                                        <div class="widget-content-right">
+                                            <div class="widget-numbers text-danger">@ViewBag.Authors</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="bg-transparent list-group-item">
+                            <div class="widget-content p-0">
+                                <div class="widget-content-outer">
+                                    <div class="widget-content-wrapper">
+                                        <div class="widget-content-left">
+                                            <div class="widget-heading">Users</div>
+                                            <div class="widget-subheading">Total users</div>
+                                        </div>
+                                        <div class="widget-content-right">
+                                            <div class="widget-numbers text-warning">@ViewBag.Users</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                <div class="col-md-12 col-lg-4">
+                    <ul class="list-group list-group-flush">
+                        <li class="bg-transparent list-group-item">
+                            <div class="widget-content p-0">
+                                <div class="widget-content-outer">
+                                    <div class="widget-content-wrapper">
+                                        <div class="widget-content-left">
+                                            <div class="widget-heading">Categories</div>
+                                            <div class="widget-subheading">Total categories</div>
+                                        </div>
+                                        <div class="widget-content-right">
+                                            <div class="widget-numbers text-success">@ViewBag.Categories</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="bg-transparent list-group-item">
+                            <div class="widget-content p-0">
+                                <div class="widget-content-outer">
+                                    <div class="widget-content-wrapper">
+                                        <div class="widget-content-left">
+                                            <div class="widget-heading">Sub-categories</div>
+                                            <div class="widget-subheading">Total sub-categories</div>
+                                        </div>
+                                        <div class="widget-content-right">
+                                            <div class="widget-numbers text-primary">@ViewBag.SubCategories</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="main-card mb-3 card">
+        <div class="card-body">
+            <h5 class="card-title">Revenue/Expenditure chart</h5>
+            <div id="chart-revenue"></div>
+        </div>
+    </div>
+</div>
+

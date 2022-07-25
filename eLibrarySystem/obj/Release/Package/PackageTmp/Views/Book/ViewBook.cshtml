@@ -1,0 +1,56 @@
+﻿@using System.Web.Optimization;
+@model eLibrarySystem.Areas.Admin.ViewModels.BookVM
+@{
+    ViewBag.Title = "View Book";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@Styles.Render("~/Content/homestyle")
+<div class="app-main__inner">
+    <div class="app-page-title app-page-title-simple">
+        <div class="page-title-wrapper">
+            <div class="page-title-heading">
+                <div>
+                    <div class="page-title-head center-elem">
+                        <span class="d-inline-block pr-2">
+                            <i class="lnr-apartment icon-gradient bg-mean-fruit"></i>
+                        </span>
+                        <span class="d-inline-block">Book</span>
+                    </div>
+                    <div class="page-title-subheading opacity-10">
+                        <nav class="" aria-label="breadcrumb">
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item">
+                                    <a>
+                                        <i aria-hidden="true" class="fa fa-home"></i>
+                                    </a>
+                                </li>
+                                <li class="active breadcrumb-item" aria-current="page">
+                                    Books
+                                </li>
+                                <li class="active breadcrumb-item" aria-current="page">
+                                    @Model.Name
+                                </li>
+                            </ol>
+                        </nav>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    @Html.Partial("_SingleBookLoader")
+    <div id="detail"></div>
+</div>
+
+@section Scripts{
+    <script>
+            $(document).ready(function () {
+                $("#detail").load('@Url.Action("GetBook","Book", new { area = "",id=ViewBag.Param })', "", function (responseText, textStatus, XMLHttpRequest) {
+                    $("#Loader").hide();
+                    initFavBooks();
+                    initQuantity();
+                });
+            })
+    </script>
+    @Scripts.Render("~/bundles/homeutil")
+}

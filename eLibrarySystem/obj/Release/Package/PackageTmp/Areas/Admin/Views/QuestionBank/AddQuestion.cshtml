@@ -1,0 +1,96 @@
+﻿@using eLibrary.DAL.Entity
+@using System.Web.Optimization;
+@model eLibrarySystem.Areas.Admin.ViewModels.QuestionBankVM
+@{
+    ViewBag.Title = "Add Question";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+<div class="app-main__inner">
+    @Html.Partial("_NotificationAlert")
+    <div class="app-page-title">
+        <div class="page-title-wrapper">
+            <div class="page-title-heading">
+                <div class="page-title-icon">
+                    <i class="pe-7s-notebook icon-gradient bg-tempting-azure"></i>
+                </div>
+                <div>
+                    Question
+                    <div class="page-title-subheading">Add questions to question bank in the system here.</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    @using (Html.BeginForm("AddQuestion", "QuestionBank", FormMethod.Post, new { @class = "validate", novalidate = true }))
+    {
+        @Html.AntiForgeryToken()
+        @Html.HiddenFor(model => model.QuestionCategoryID)
+        <div class="main-card mb-3 card">
+            <div class="card-body">
+                <div class="form-row">
+                    <div class="col-md-6">
+                        <label class="control-label" for="QuestionType">Question Type</label><br />
+                        @foreach (var item in Enum.GetValues(typeof(QuestionType)).Cast<QuestionType>().ToList())
+                        {
+                            <span style="margin: 5px;">
+                                @Html.RadioButtonFor(model => model.QuestionType, item, new { id = item, @class = "Status", required = true })
+                                <label for="@item">@item.DisplayName()</label>
+                            </span>
+                        }
+                    </div>
+                    <div class="col-md-12">
+                        <div class="position-relative form-group">
+                            <label for="Address" class="col-form-label">Question</label><span class="text-danger">*</span>
+                            @Html.TextAreaFor(model => model.Question, 3, 0, new { @class = "form-control", placeholder = "Enter Question", required = true })
+                            <div class="valid-feedback">
+                                Looks good!
+                            </div>
+                            <div class="invalid-feedback">
+                                Question is required
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row" style="display: none" id="OptionDIV">
+                        @{
+                            var counter = 0;
+                            for (int i = 0; i < 4; i++)
+                            {
+                                counter++;
+                                <div class="col-md-6">
+                                    <div class="position-relative form-group">
+                                        <label class="control-label" for="OptionOne">Option @counter</label>
+                                        @Html.EditorFor(model => model.OptionBank[i].OptionTxt, new { htmlAttributes = new { @class = "form-control", placeholder = "Enter Option " + counter,style="width:100%" } })
+                                    </div>
+                                    <div class="invalid-feedback">
+                                        Option @counter required
+                                    </div>
+                                </div>
+                            }
+                        }
+                    </div>
+                    <div class="col-md-12">
+                        <div class="position-relative form-group">
+                            <label for="Address" class="col-form-label">Answer</label><span class="text-danger">*</span>
+                            @Html.EditorFor(model => model.Answer.AnswerText, new { htmlAttributes = new { @class = "form-control", placeholder = "Enter Answer", required = true } })
+                            <div class="valid-feedback">
+                                Looks good!
+                            </div>
+                            <div class="invalid-feedback">
+                                Answer is required
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <button class="mb-4 mt-n2 btn btn-primary" type="submit"><i class="fa fa-upload"></i> Save</button>
+    }
+
+</div>
+@section Scripts{
+    @Scripts.Render("~/bundles/validation")
+    @Scripts.Render("~/bundles/timymc")
+    @Scripts.Render("~/bundles/editor")
+    @Scripts.Render("~/bundles/addquestion")
+}
+

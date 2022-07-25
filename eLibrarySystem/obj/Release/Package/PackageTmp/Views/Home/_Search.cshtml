@@ -1,0 +1,60 @@
+﻿@model eLibrarySystem.Areas.Admin.ViewModels.HomeModel
+
+@{
+    if (Model.SearchedBooks.Count > 0)
+    {
+        <div class="col-md-12">
+            <h5>@Model.SearchCount result(s) found.</h5><hr />
+        </div>
+        <div class="row">
+            @foreach (var book in Model.SearchedBooks)
+            {
+                string FrontCoverBase64 = Convert.ToBase64String(book.FrontCover);
+                string FrontCoverSrc = string.Format("data:image/gif;base64,{0}", FrontCoverBase64);
+                string BackCoverBase64 = Convert.ToBase64String(book.BackCover);
+                string BackCoverSrc = string.Format("data:image/gif;base64,{0}", BackCoverBase64);
+                <div class="col-md-3">
+                    <div class="main-card mb-2 card">
+                        <div class="card-body">
+                            <h4 class="card-title">@book.Name</h4><small> - @book.Author</small>
+                            <div class="product_fav pull-right" id="@book.Id"><i class="fas fa-heart"></i></div>
+                            <div class="divider"></div>
+                            <div class="" style="height:300px; width: 100%;">
+                                <img src="@FrontCoverSrc" style="height:300px; width: 100%;" />
+                            </div><br />
+                            <a class="btn-hover-shine btn btn-shadow btn-primary btn-block" href="@Url.Action("ViewBook","Book",new { id=book.Id})">more info</a>
+                        </div>
+                    </div>
+                </div>
+            }
+            <div class="col-md-12">
+            </div>
+            @foreach (var article in Model.SearchedArticles)
+            {
+                string ArticleImageBase64 = Convert.ToBase64String(article.Image);
+                string ArticleImageSrc = string.Format("data:image/gif;base64,{0}", ArticleImageBase64);
+                <div class="col-md-3">
+                    <div class="main-card mb-2 card">
+                        <div class="card-body">
+                            <h4 class="card-title">@article.Description</h4><small> - @article.SubCategory</small>
+                            <div class="divider"></div>
+                            <div class="slick-slider">
+                                <div>
+                                    <div class="" style="height:120px;">
+                                        <img src="@ArticleImageSrc" style="height:100px; width:100%;" />
+                                    </div>
+                                </div>
+                            </div>
+                            <button class="btn-hover-shine btn btn-shadow btn-primary btn-block">Read</button>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    }
+    else
+    {
+        <h4 class="text-center">No record found</h4>
+    }
+
+}

@@ -1,0 +1,129 @@
+﻿@using System.Web.Optimization;
+@model eLibrarySystem.Areas.Admin.ViewModels.HomeModel
+@{
+    ViewBag.Title = "Course Content Header";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    int counter = 0;
+}
+<style>
+    .book-image {
+        position: relative
+    }
+
+        .book-image > img {
+            width: 100%;
+            height: 300px;
+            display: block;
+            text-align: center
+        }
+</style>
+@Styles.Render("~/Content/homestyle")
+<div class="app-main__inner">
+    <div class="app-page-title app-page-title-simple">
+        <div class="page-title-wrapper">
+            <div class="page-title-heading">
+                <div>
+                    <div class="page-title-head center-elem">
+                        <span class="d-inline-block pr-2">
+                            <i class="lnr-apartment icon-gradient bg-mean-fruit"></i>
+                        </span>
+                        <span class="d-inline-block">Main Home page</span>
+                    </div>
+                    <div class="page-title-subheading opacity-10">
+                        <nav class="" aria-label="breadcrumb">
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item">
+                                    <a>
+                                        <i aria-hidden="true" class="fa fa-home"></i>
+                                    </a>
+                                </li>
+                                <li class="breadcrumb-item" aria-current="page">
+                                    Courses
+                                </li>
+                                <li class="active breadcrumb-item" aria-current="page">
+                                    @ViewBag.Course.Description
+                                </li>
+                            </ol>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        @{
+            string ImageBase64 = Convert.ToBase64String(@ViewBag.Course.Image);
+            string ImageSrc = string.Format("data:image/gif;base64,{0}", ImageBase64);
+        }
+        <div class="col-md-6">
+            <div class="card-shadow-primary border mb-3 card card-body border-primary">
+                <img src="@ImageSrc" alt="Image" style="width:100%; height:50%" /><hr />
+                <h5 class="card-title">@ViewBag.Course.Description</h5>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <h3>COURSE CONTENTS</h3><hr />
+            <div class="row">
+                @{
+                    if (ViewBag.CourseContentHeader.Count > 0)
+                    {
+                        foreach (var contentHeader in ViewBag.CourseContentHeader)
+                        {
+                            counter++;
+                            <div class="col-md-6">
+                                <div class="card-shadow-primary border mb-3 card card-body border-primary" style="height:170px">
+                                    <h5 class="card-title">@counter .  @contentHeader.Heading</h5>
+                                    <a class="btn-hover-shine btn btn-shadow btn-primary btn-block" href="@Url.Action("Read", "Courses", new { courseContentID = contentHeader.Id })"> Open</a>
+                                </div>
+                            </div>
+                        }
+                    }
+            else
+            {
+                <p class="text-center">No course content added yet.</p>
+            }
+                }
+            </div>
+        </div>
+        <div class="col-md-12">
+            <h3>RELATED BOOK CONCERNING THIS COURSE</h3><hr />
+
+            @{
+                if (ViewBag.RelateBooks.Count > 0)
+                {
+                    <div class="row">
+                        @foreach (var book in ViewBag.RelateBooks)
+                        {
+                            string FrontCoverBase64 = Convert.ToBase64String(book.FrontCover);
+                            string FrontCoverSrc = string.Format("data:image/gif;base64,{0}", FrontCoverBase64);
+                            string BackCoverBase64 = Convert.ToBase64String(book.BackCover);
+                            string BackCoverSrc = string.Format("data:image/gif;base64,{0}", BackCoverBase64);
+                            <div class="col-md-3">
+                                <div class="main-card mb-2 card">
+                                    <div class="card-body">
+                                        <h4 class="card-title">@book.Name</h4><small> - @book.Author</small>
+                                        <div class="product_fav pull-right" id="@book.Id"><i class="fas fa-heart"></i></div>
+                                        <div class="divider"></div>
+                                        <div class="book-image">
+                                            <img src="@FrontCoverSrc" />
+                                        </div><br />
+                                        <a class="btn-hover-shine btn btn-shadow btn-primary btn-block" href="@Url.Action("ViewBook","Book",new { id=book.Id})">more info</a>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                }
+                else
+                {
+                    <p class="text-center">No related book found</p>
+                }
+            }
+        </div>
+    </div>
+
+</div>
+@section Scripts{
+    @Scripts.Render("~/bundles/homeutil")
+}
+
